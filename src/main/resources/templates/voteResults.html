@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>투표 결과 | 익명 투표 결과보기</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/vote.css}">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-inner">
+            <a href="/" class="site-logo">무료 익명 투표 사이트 | binary world</a>
+        </div>
+    </header>
+
+    <div class="intro">
+        <h1 class="main-title">투표 결과</h1>
+    </div>
+
+    <div class="table-responsive">
+        <div class="table-header">
+            <span class="table-title">투표 결과</span>
+        </div>
+        <table class="styled-table vote-result-table">
+            <thead>
+            <tr>
+                <th>선택지</th>
+                <th>투표 수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="option : ${options}">
+                <td th:text="${option.optionText}"></td>
+                <td th:text="${results[option.optionNumber] != null ? results[option.optionNumber] : 0}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>모임 수정 | 모임 관리</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/vote.css}">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-inner">
+            <a href="/" class="site-logo">무료 익명 투표 사이트 | binary world</a>
+        </div>
+    </header>
+
+    <div class="intro">
+        <h1 class="main-title">모임 수정</h1>
+    </div>
+
+    <div class="vote-container">
+        <form class="vote-form" th:action="@{/meet/edit/{id}(id=${meet.id})}" th:object="${meet}" method="post" onsubmit="return validateForm()">
+            <div>
+                <p>* 모임 관리자 비밀번호는 모임 수정 및 삭제 용도입니다.</p>
+            </div>
+            <div>
+                <label class="form-label" for="meetName">모임명:</label>
+                <input type="text" id="meetName" th:field="*{meetName}" required>
+            </div>
+            <div>
+                <label class="form-label" for="createdPassword">모임 관리자 비밀번호:</label>
+                <input type="text" id="createdPassword" th:field="*{createdPassword}" required>
+            </div>
+            <div>
+                <label class="form-label" for="meetPassword">모임 참가 비밀번호:</label>
+                <input type="text" id="meetPassword" th:field="*{meetPassword}" required>
+            </div>
+            <div>
+                <label class="form-label" for="endDateTime">모임 종료 시간:</label>
+                <input type="datetime-local" id="endDateTime" th:field="*{endDateTime}" required>
+            </div>
+            <div>
+                <button type="submit" style="margin-top: 20px;">수정하기</button>
+            </div>
+        </form>
+    </div>
+
+<script>
+    function validateForm() {
+        var inputs = document.querySelectorAll("input[required]");
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].value.trim() === "") {
+                alert("모든 필드를 채워주세요.");
+                return false;
+            }
+        }
+        return true;
+    }
+</script>
+</body>
+</html>
