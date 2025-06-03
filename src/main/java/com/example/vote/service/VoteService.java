@@ -35,6 +35,7 @@ public class VoteService {
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일 a h시 m분");
 
+    @Transactional
     public Vote createVote(VoteDTO voteDTO, List<String> options) {
         Meet meet = null;
         if (voteDTO.getMeetId() != null) {

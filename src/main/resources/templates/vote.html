@@ -44,7 +44,7 @@
             <span th:if="${vote.maxOptions != null}"> (최대 선택 옵션 개수: [[${vote.maxOptions}]])</span>
         <p th:unless="${vote.allowMultipleVotes}" style="color: red;">중복투표: X</p>
 
-        <form th:action="@{/vote/{id}(id=${vote.id})}" method="post" class="vote-form" onsubmit="return validateVoteForm()">
+        <form th:action="@{/vote/{id}(id=${vote.id})}" method="post" class="vote-form" onsubmit="this.querySelector('button[type=submit]').disabled = true; return validateVoteForm()">
             <ul class="vote-options">
                 <li th:each="option : ${options}" class="vote-options-li">
                     <input type="checkbox" th:id="${option.id}" th:name="optionNumbers" th:value="${option.optionNumber}" th:if="${vote.allowMultipleVotes}" onchange="checkMaxOptions()">
