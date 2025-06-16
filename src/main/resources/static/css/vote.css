@@ -397,23 +397,28 @@ body {
     .tab-buttons-wrapper {
         flex-direction: column;
         align-items: stretch;
-        gap: 0.7rem;
-    }
-
-    .tab-button,
-    .create-vote-button {
-        width: 100%;
-        font-size: 1.1rem;
-        padding: 0.8rem 1.2rem;
     }
 
     .vote-actions {
         flex-direction: column;
-        gap: 0.4rem;
+        align-items: center;
+    }
+
+    .vote-actions form {
+        width: 100%;
     }
 
     .vote-button,
     .result-button {
+        width: 100%;
+        font-size: 1.1rem;
+        padding: 0.9rem;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .create-vote-button,
+    .tab-button {
         width: 100%;
     }
 }
