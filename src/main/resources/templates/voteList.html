@@ -26,9 +26,6 @@
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
-    <!-- Stylesheet -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/vote.css}">
-
     <!-- ✅ 파비콘 (모든 디바이스용 포함) -->
     <link rel="icon" href="/img/favicon/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png">
@@ -49,19 +46,21 @@
     <meta name="msapplication-TileImage" content="/img/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
+    <!-- Stylesheet -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+    <link id="theme-style" rel="stylesheet" th:href="@{/css/main-light.css}">
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6890085609044109"
             crossorigin="anonymous"></script>
 </head>
 <body>
-    <header class="main-header">
-        <div class="header-inner">
-            <a href="/" class="site-logo">무료 익명 투표 사이트 | Binary World</a>
-        </div>
-    </header>
+<th:block th:include="common/header"></th:block>
 
-    <div class="intro">
-        <h1 class="main-title">공개 투표</h1>
+    <div class="page-title">
+        <h1>무료 익명 투표 사이트</h1>
+        <p>누구나 쉽게 참여하는 설문 플랫폼</p>
     </div>
+
     <div class="icon-container">
         <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();"></a>
         <a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();"></a>
@@ -82,7 +81,7 @@
 
         <!-- 공개 투표 탭 내용 -->
         <div id="public-votes" class="tab">
-            <h3>공개 투표 목록</h3>
+            <h2>공개 투표 목록</h2>
         <ul class="vote-options">
             <li th:each="vote : ${votes}" class="vote-item">
                 <div class="vote-info">
@@ -113,7 +112,39 @@
         </div>
     </div>
 
+    <th:block th:include="common/footer"></th:block>
+
     <script th:inline="javascript">
+        // 1. 햄버거 메뉴 토글
+        const toggleBtn = document.querySelector('.nav-toggle');
+        const nav = document.querySelector('.nav-links');
+
+        if (toggleBtn && nav) {
+            toggleBtn.addEventListener('click', () => {
+                toggleBtn.classList.toggle('active');
+                nav.classList.toggle('open');
+            });
+        }
+
+        // 2. 테마 토글
+        const themeToggle = document.getElementById('themeToggle');
+        const themeLink = document.getElementById('theme-style');
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+
+        applyTheme(currentTheme);
+
+        if (themeToggle && themeLink) {
+            themeToggle.addEventListener('click', () => {
+                const isDark = themeLink.getAttribute('href').includes('dark');
+                const nextTheme = isDark ? 'light' : 'dark';
+                applyTheme(nextTheme);
+            });
+        }
+
+        function applyTheme(theme) {
+            themeLink.setAttribute('href', `/css/main-${theme}.css`);
+            localStorage.setItem('theme', theme);
+        }
 
         function checkPasswordAndSubmit(form, action, method = 'POST') {
             const password = prompt("비밀번호를 입력하세요:");

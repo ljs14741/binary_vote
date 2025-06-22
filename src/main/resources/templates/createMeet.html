@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="간단한 단계를 통해 익명 모임을 생성하세요. 모임에 참여할 인원만 투표를 할 수 있습니다.">
 
-    <link rel="stylesheet" type="text/css" th:href="@{/css/vote.css}">
+    <!-- Stylesheet -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+    <link id="theme-style" rel="stylesheet" th:href="@{/css/main-light.css}">
 
     <!-- ✅ 파비콘 (모든 디바이스용 포함) -->
     <link rel="icon" href="/img/favicon/favicon.ico" type="image/x-icon">
@@ -31,15 +33,15 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+<th:block th:include="common/header"></th:block>
 
-    <header class="main-header">
-        <div class="header-inner">
-            <a href="/" class="site-logo">무료 익명 투표 사이트 | Binary World</a>
-        </div>
-    </header>
+<div class="page-title">
+    <h1>무료 익명 투표 사이트</h1>
+    <p>누구나 쉽게 참여하는 설문 플랫폼</p>
+</div>
 
     <div class="intro">
-        <h1 class="main-title">비공개 투표 모임 만들기</h1>
+        <h2 class="main-title">비공개 투표 모임 만들기</h2>
     </div>
 
     <div class="vote-container">
@@ -69,7 +71,40 @@
         </form>
     </div>
 
-<script>
+<th:block th:include="common/footer"></th:block>
+
+<script th:inline="javascript">
+    // 1. 햄버거 메뉴 토글
+    const toggleBtn = document.querySelector('.nav-toggle');
+    const nav = document.querySelector('.nav-links');
+
+    if (toggleBtn && nav) {
+        toggleBtn.addEventListener('click', () => {
+            toggleBtn.classList.toggle('active');
+            nav.classList.toggle('open');
+        });
+    }
+
+    // 2. 테마 토글
+    const themeToggle = document.getElementById('themeToggle');
+    const themeLink = document.getElementById('theme-style');
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+
+    applyTheme(currentTheme);
+
+    if (themeToggle && themeLink) {
+        themeToggle.addEventListener('click', () => {
+            const isDark = themeLink.getAttribute('href').includes('dark');
+            const nextTheme = isDark ? 'light' : 'dark';
+            applyTheme(nextTheme);
+        });
+    }
+
+    function applyTheme(theme) {
+        themeLink.setAttribute('href', `/css/main-${theme}.css`);
+        localStorage.setItem('theme', theme);
+    }
+
     function validateForm() {
         var inputs = document.querySelectorAll("input[required]");
         for (var i = 0; i < inputs.length; i++) {
