@@ -224,9 +224,9 @@ h2, .main-title {
     filter: brightness(1.2);
 }
 
-.twitter, .facebook, .kakao {
-    filter: brightness(0.8);
-}
+.twitter { background-image: url(../img/icon-twitter.png); }
+.facebook { background-image: url(../img/icon-facebook.png); }
+.kakao { background-image: url(../img/icon-kakao.png); }
 
 .vote-list-container {
     max-width: 1200px;
@@ -530,6 +530,42 @@ h2, .main-title {
     .theme-btn {
         font-size: 0.95rem;
         padding: 4px 8px;
+    }
+
+    .page-title h1 {
+        font-size: 1.8rem;
+    }
+
+    .vote-options {
+        grid-template-columns: 1fr;
+    }
+
+    .tab-buttons-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .vote-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .vote-actions form {
+        width: 100%;
+    }
+
+    .vote-button,
+    .result-button {
+        width: 100%;
+        font-size: 1.1rem;
+        padding: 0.9rem;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .create-vote-button,
+    .tab-button {
+        width: 100%;
     }
 }
 

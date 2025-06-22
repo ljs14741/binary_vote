@@ -568,6 +568,10 @@ h2 {
         padding: 6px 12px;
     }
 
+    .page-title h1 {
+        font-size: 1.8rem;
+    }
+
     .vote-options {
         grid-template-columns: 1fr;
     }
