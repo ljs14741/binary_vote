@@ -31,6 +31,21 @@ public class VoteController {
     @Autowired
     private MeetService meetService;
 
+    @GetMapping("/about")
+    public String about() {
+        return "common/about";
+    }
+
+    @GetMapping("/privacy-policy")
+    public String privacyPolicy() {
+        return "common/privacy-policy";
+    }
+
+    @GetMapping("/contact")
+    public String contact() {
+        return "common/contact";
+    }
+
     // 공개 투표 목록 조회
     @GetMapping("/")
     public String publicListVotes(Model model, HttpSession session) {

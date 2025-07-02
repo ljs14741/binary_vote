@@ -187,6 +187,40 @@ section {
     text-align: center;
 }
 
+.footer-right a,
+.footer-email,
+.contact-email {
+    color: #66aaff;
+    text-decoration: none;
+    margin: 0 0.5rem;
+    transition: color 0.2s;
+}
+
+.footer-right a:hover,
+.footer-email:hover,
+.contact-email:hover {
+    color: #3399ff;
+}
+
+/* ===== 페이지 공통 스타일 ===== */
+.page-content {
+    padding: 2rem 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.7;
+    color: #ddd;
+}
+
+.page-content h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #eee;
+}
+
+.page-content p {
+    margin-bottom: 0.8rem;
+}
+
 @media (max-width: 1024px) {
     body {
         padding: 0 20px;
@@ -566,6 +600,23 @@ h2, .main-title {
     .create-vote-button,
     .tab-button {
         width: 100%;
+    }
+
+    .site-footer {
+        font-size: 0.85rem;
+        padding: 1rem 0.5rem;
+    }
+
+    .page-content {
+        padding: 1rem 0.5rem;
+    }
+
+    .page-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .page-content p {
+        font-size: 0.95rem;
     }
 }
 
