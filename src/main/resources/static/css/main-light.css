@@ -1,28 +1,29 @@
+/*
+****************************************************************************************************
+****************************************************************************************************
+****************************************************************************************************
+🌞 라이트 테마 - main-light.css 공통 시작
+header, footer, title, contact
+*/
+
 body {
+    font-family: 'Pretendard', sans-serif;
+    background-color: #f5f5f5;
+    color: #222;
     margin: 0;
-    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
-    background-color: #f9fafb;
-    color: #333;
-    line-height: 1.6;
     padding-top: 60px;
+    line-height: 1.7;
 }
 
-@media (max-width: 1024px) {
-    body {
-        padding: 0 20px;
-    }
-}
-
-/* 헤더 */
+/* ===== 헤더 ===== */
 .binary-header {
     position: fixed;
     top: 0;
     width: 100%;
     background: rgba(255, 255, 255, 0.95);
-    color: #0077cc;
+    color: #4682B4;
     z-index: 9999;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    font-family: 'Pretendard', sans-serif;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .header-container {
@@ -32,22 +33,20 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: relative;
 }
 
 .site-logo {
     font-size: 1.5rem;
-    font-weight: bold;
-    color: #0077cc;
+    font-weight: 700;
+    color: #4682B4;
     text-decoration: none;
-    white-space: nowrap;
     transition: color 0.3s;
 }
 .site-logo:hover {
-    color: #005fa3;
+    color: #315f7c;
 }
 
-/* 네비게이션 */
+/* ===== 네비게이션 ===== */
 .nav-links {
     display: flex;
     gap: 1.5rem;
@@ -59,17 +58,16 @@ body {
     transition: color 0.3s;
 }
 .nav-links a:hover {
-    color: #0077cc;
+    color: #4682B4;
 }
 
-/* 햄버거 + 테마 버튼 묶음 */
+/* 햄버거 + 테마 버튼 */
 .header-controls {
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
-/* 햄버거 버튼 */
 .nav-toggle {
     display: none;
     background: none;
@@ -83,151 +81,198 @@ body {
     display: block;
     width: 25px;
     height: 3px;
-    background: #0077cc;
+    background: #4682B4;
     border-radius: 2px;
     transition: all 0.3s ease;
 }
-.hamburger::before {
-    transform: translateY(-8px);
-}
-.hamburger::after {
-    transform: translateY(5px);
-}
-.nav-toggle.active .hamburger {
-    background: transparent;
-}
-.nav-toggle.active .hamburger::before {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-.nav-toggle.active .hamburger::after {
-    transform: rotate(-45deg) translate(5px, -5px);
-}
+.hamburger::before { transform: translateY(-8px); }
+.hamburger::after { transform: translateY(5px); }
+.nav-toggle.active .hamburger { background: transparent; }
+.nav-toggle.active .hamburger::before { transform: rotate(45deg) translate(5px,5px); }
+.nav-toggle.active .hamburger::after { transform: rotate(-45deg) translate(5px,-5px); }
 
-/* 테마 버튼 */
 .theme-btn {
     background: none;
-    border: none;
-    color: #0077cc;
-    font-size: 1.2rem;
-    font-weight: 600;
+    border: 1px solid #4682B4;
+    color: #4682B4;
+    font-size: 1rem;
+    font-weight: 500;
     cursor: pointer;
-    padding: 8px 16px;
-    white-space: nowrap;
-    transition: color 0.3s, background-color 0.3s;
+    padding: 6px 12px;
     border-radius: 6px;
+    transition: background-color 0.3s, color 0.3s;
 }
 .theme-btn:hover {
-    color: #005fa3;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: #4682B4;
+    color: #fff;
 }
 
-/* 페이지 제목 */
+/* ===== 페이지 제목 ===== */
 .page-title {
     text-align: center;
     padding: 2.5rem 1rem 2rem;
-    background: linear-gradient(135deg, #ffffff, #eaf1f7);
-    border-bottom: 1px solid #0077cc;
+    background: linear-gradient(135deg, #ffffff, #f0f4f8);
+    border-bottom: 1px solid #4682B4;
     margin-bottom: 1rem;
-    animation: fadeInDown 0.6s ease-in-out;
+    animation: fadeInDown 0.5s ease-in-out;
 }
 .page-title h1 {
-    font-size: 2rem;
-    margin-bottom: 0.25rem;
-    color: #0077cc;
+    font-size: 2.2rem;
+    margin: 0;
+    color: #4682B4;
     font-family: 'Orbitron', sans-serif;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 .page-title p {
-    font-size: 1rem;
-    color: #555;
-    font-weight: 300;
-    margin-top: 0;
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 400;
+    margin-top: 0.5rem;
 }
 
-/* 푸터 */
-.site-footer {
-    background-color: #f2f2f2;
-    color: #666;
-    padding: 1.5rem 1rem;
-    font-size: 0.9rem;
-    text-align: center;
-    border-top: 1px solid #ccc;
-    margin-top: 4rem;
-}
-
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.footer-right a {
-    color: #3366cc;
-    text-decoration: none;
-    margin: 0 0.5rem;
-    transition: color 0.2s;
-}
-
-.footer-right a:hover {
-    color: #003399;
-}
-
-.footer-email {
-    color: #3366cc;
-    text-decoration: none;
-}
-
-.footer-email:hover {
-    color: #003399;
-}
-
-/* 페이지 공통 스타일 */
+/* ===== 페이지 공통 영역 ===== */
 .page-content {
-    padding: 2rem 1rem;
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
-    line-height: 1.7;
+    padding: 2rem 1rem;
     color: #333;
 }
-
 .page-content h1 {
     font-size: 1.8rem;
     margin-bottom: 1rem;
     color: #222;
 }
-
 .page-content p {
-    margin-bottom: 0.8rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
 }
-
 .contact-email {
-    color: #3366cc;
+    color: #4682B4;
     text-decoration: none;
 }
-
 .contact-email:hover {
-    color: #003399;
+    color: #315f7c;
 }
 
+/* ===== 푸터 ===== */
+.site-footer {
+    background-color: #f2f2f2;
+    color: #666;
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 1.5rem 1rem;
+    border-top: 1px solid #ddd;
+    margin-top: 4rem;
+}
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.footer-right a,
+.footer-email,
+.contact-email {
+    color: #4682B4;
+    text-decoration: none;
+    margin: 0 0.5rem;
+    transition: color 0.2s;
+}
+.footer-right a:hover,
+.footer-email:hover,
+.contact-email:hover {
+    color: #315f7c;
+}
+
+
 .icon-container {
+    margin-top: 20px;
     display: flex;
+    gap: 12px;
     justify-content: center;
-    gap: 1rem;
-    margin: 1rem 0;
-    animation: fadeIn 1s ease;
 }
 
 .link-icon {
-    width: 36px;
-    height: 36px;
-    background-size: contain;
-    background-repeat: no-repeat;
+    width: 42px;
+    height: 42px;
     display: inline-block;
+    background-size: cover;
+    border-radius: 50%;
+    transition: transform 0.3s, opacity 0.3s;
+    opacity: 0.9;
 }
 
-.twitter { background-image: url(../img/icon-twitter.png); }
-.facebook { background-image: url(../img/icon-facebook.png); }
-.kakao { background-image: url(../img/icon-kakao.png); }
+.link-icon:hover {
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+.link-icon.twitter { background-image: url(../img/icon-twitter.png); }
+.link-icon.facebook { background-image: url(../img/icon-facebook.png); }
+.link-icon.kakao { background-image: url(../img/icon-kakao.png); }
+
+/* ===== 반응형 ===== */
+@media (max-width: 768px) {
+    .nav-toggle { display: block; }
+    .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0; right: 0;
+        background: rgba(255, 255, 255, 0.97);
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem 0;
+        gap: 1rem;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+    .nav-links.open {
+        max-height: 500px;
+        opacity: 1;
+        visibility: visible;
+    }
+    .nav-links a {
+        font-size: 1.1rem;
+        padding: 0.5rem 0;
+    }
+    .theme-btn {
+        font-size: 0.95rem;
+        padding: 5px 10px;
+    }
+    .site-footer {
+        font-size: 0.85rem;
+        padding: 1rem 0.5rem;
+    }
+    .page-content {
+        padding: 1rem 0.5rem;
+    }
+    .page-content h1 {
+        font-size: 1.5rem;
+    }
+    .page-content p {
+        font-size: 0.95rem;
+    }
+}
+
+/* ===== 애니메이션 ===== */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/*
+****************************************************************************************************
+****************************************************************************************************
+****************************************************************************************************
+🌞 라이트 테마 - main-light.css 공통 끝
+*/
+
+
+
+
+
+
 
 h2 {
     font-size: 1.5rem;
@@ -555,60 +600,6 @@ h2 {
 
 /* 반응형 */
 @media (max-width: 768px) {
-    .nav-toggle {
-        display: block;
-    }
-
-    .nav-links {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: rgba(255, 255, 255, 0.97);
-        flex-direction: column;
-        align-items: center;
-        padding: 1rem 0;
-        gap: 1rem;
-        max-height: 0;
-        overflow: hidden;
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        transition: all 0.3s ease;
-    }
-
-    .nav-links.open {
-        max-height: 500px;
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-    }
-
-    .nav-links a {
-        font-size: 1.1rem;
-        width: 100%;
-        text-align: center;
-        padding: 0.5rem 0;
-        color: #0077cc;
-    }
-
-    .nav-links a:hover {
-        background: rgba(0, 0, 0, 0.03);
-    }
-
-    .header-controls {
-        gap: 0.3rem;
-    }
-
-    .theme-btn {
-        font-size: 1rem;
-        padding: 6px 12px;
-    }
-
-    .page-title h1 {
-        font-size: 1.8rem;
-    }
-
     .vote-options {
         grid-template-columns: 1fr;
     }
@@ -639,22 +630,5 @@ h2 {
     .create-vote-button,
     .tab-button {
         width: 100%;
-    }
-
-    .site-footer {
-        font-size: 0.85rem;
-        padding: 1rem 0.5rem;
-    }
-
-    .page-content {
-        padding: 1rem 0.5rem;
-    }
-
-    .page-content h1 {
-        font-size: 1.5rem;
-    }
-
-    .page-content p {
-        font-size: 0.95rem;
     }
 }

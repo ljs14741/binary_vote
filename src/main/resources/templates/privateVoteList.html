@@ -2,12 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>비공개 익명 투표 사이트</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
     <!-- Stylesheet -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
     <link id="theme-style" rel="stylesheet" th:href="@{/css/main-light.css}">
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 
     <!-- ✅ 파비콘 (모든 디바이스용 포함) -->
     <link rel="icon" href="/img/favicon/favicon.ico" type="image/x-icon">
@@ -288,24 +293,30 @@
         window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
     }
 
-    function shareKakao() {
-        Kakao.init('8b68c737be6b8e9a8007c61ee6f9b8da');
+    function setupKakaoShareButton() {
+        if (!window.Kakao) return;
+        if (!document.querySelector('#btnKakao')) return;
 
-        // 카카오링크 버튼 생성
+        if (!Kakao.isInitialized()) {
+            Kakao.init('8b68c737be6b8e9a8007c61ee6f9b8da');
+        }
+
         Kakao.Share.createDefaultButton({
             container: '#btnKakao',
             objectType: 'feed',
             content: {
                 title: '익명투표',
                 description: '익명투표에 참여하세요~',
-                imageUrl: 'https://vote.binaryworld.kr',
+                imageUrl: 'https://vote.binaryworld.kr/img/radish.png',
                 link: {
                     mobileWebUrl: 'https://vote.binaryworld.kr',
                     webUrl: 'https://vote.binaryworld.kr'
-                },
-            },
+                }
+            }
         });
     }
+
+    setupKakaoShareButton();
 </script>
 </body>
 </html>
