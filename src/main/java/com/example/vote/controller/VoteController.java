@@ -5,11 +5,13 @@ import com.example.vote.dto.VoteDTO;
 import com.example.vote.entity.Options;
 import com.example.vote.entity.Vote;
 import com.example.vote.service.MeetService;
+import com.example.vote.service.VisitorService;
 import com.example.vote.service.VoteService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Controller
+@RequiredArgsConstructor
 @Slf4j
 public class VoteController {
     @Autowired
@@ -30,6 +33,8 @@ public class VoteController {
 
     @Autowired
     private MeetService meetService;
+
+    private final VisitorService visitorService;
 
     @GetMapping("/about")
     public String about() {
@@ -48,14 +53,13 @@ public class VoteController {
 
     // 공개 투표 목록 조회
     @GetMapping("/")
-    public String publicListVotes(Model model, HttpSession session) {
+    public String publicListVotes(Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         List<Vote> votes = voteService.getAllPublicVotes();
         Map<Long, Long> voteResults = new HashMap<>();
 
         for (Vote vote : votes) {
             Long voteId = vote.getId();
             Long uniqueUserCount = voteService.getUniqueUserCountByVoteId(voteId);
-            log.info("아아: " + uniqueUserCount);
             voteResults.put(voteId, uniqueUserCount);
         }
 
@@ -66,6 +70,7 @@ public class VoteController {
         model.addAttribute("voteResults", voteResults);
 
         session.setAttribute("dummy", "dummyValue");
+        visitorService.countVisitIfNeeded(request, response, "vote");
         return "voteList";
     }
 
