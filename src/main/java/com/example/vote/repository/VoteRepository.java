@@ -1,6 +1,8 @@
 package com.example.vote.repository;
 
 import com.example.vote.entity.Vote;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,4 +25,7 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
     List<Vote> findPrivateVotesByMeetId(@Param("meetId") Long meetId);
 
     List<Vote> findByMeetId(Long meetId);
+
+    Page<Vote> findByVoteType(Vote.VoteType voteType, Pageable pageable);
+
 }

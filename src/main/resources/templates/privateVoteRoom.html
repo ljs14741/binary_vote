@@ -48,6 +48,10 @@
   <h2 class="main-title" th:text="${meet.meetName} + ' - 비공개 투표방'"></h2>
 </div>
 
+<div style="text-align: center; margin-top: 2rem;">
+  <a href="/" class="home-button">🏠 홈으로 가기</a>
+</div>
+
 <div class="vote-list-container">
   <div id="public-votes" class="tab active">
     <form id="create-vote-form" th:action="@{/vote/create}" method="get">

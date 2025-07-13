@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -53,21 +54,29 @@ public class VoteController {
 
     // 공개 투표 목록 조회
     @GetMapping("/")
-    public String publicListVotes(Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
-        List<Vote> votes = voteService.getAllPublicVotes();
+    public String publicListVotes(@RequestParam(defaultValue = "0") int page,
+                                  @RequestParam(defaultValue = "10") int size,
+                                  Model model,
+                                  HttpSession session,
+                                  HttpServletRequest request,
+                                  HttpServletResponse response) {
+
+        Page<Vote> votePage = voteService.getPagedPublicVotes(page, size);
         Map<Long, Long> voteResults = new HashMap<>();
 
-        for (Vote vote : votes) {
+        for (Vote vote : votePage.getContent()) {
             Long voteId = vote.getId();
             Long uniqueUserCount = voteService.getUniqueUserCountByVoteId(voteId);
             voteResults.put(voteId, uniqueUserCount);
         }
 
+        model.addAttribute("votes", votePage.getContent());
+        model.addAttribute("voteResults", voteResults);
+        model.addAttribute("currentPage", votePage.getNumber());
+        model.addAttribute("totalPages", votePage.getTotalPages());
+
         List<MeetDTO> meets = meetService.getAllMeets();
         model.addAttribute("meets", meets);
-
-        model.addAttribute("votes", votes);
-        model.addAttribute("voteResults", voteResults);
 
         session.setAttribute("dummy", "dummyValue");
         visitorService.countVisitIfNeeded(request, response, "vote");
@@ -202,11 +211,13 @@ public class VoteController {
             return "redirect:/vote/" + id + "?error=" + e.getMessage();
         }
 
-        if (vote.getVoteType() == Vote.VoteType.PUBLIC) {
-            return "redirect:/";
-        } else {
-            return "redirect:/meet/" + meetId;
-        }
+        return "redirect:/vote/results/" + id;
+
+//        if (vote.getVoteType() == Vote.VoteType.PUBLIC) {
+//            return "redirect:/";
+//        } else {
+//            return "redirect:/meet/" + meetId;
+//        }
 
     }
 

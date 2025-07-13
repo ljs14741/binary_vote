@@ -10,6 +10,10 @@ import com.example.vote.repository.VoteResultRepository;
 import com.example.vote.repository.VoteRepository;
 import com.example.vote.repository.OptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +38,11 @@ public class VoteService {
     private MeetRepository meetRepository;
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일 a h시 m분");
+
+    public Page<Vote> getPagedPublicVotes(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        return voteRepository.findByVoteType(Vote.VoteType.PUBLIC, pageable);
+    }
 
     @Transactional
     public Vote createVote(VoteDTO voteDTO, List<String> options) {

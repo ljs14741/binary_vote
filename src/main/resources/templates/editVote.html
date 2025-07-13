@@ -45,6 +45,10 @@
         <h2 class="main-title">투표 수정하기</h2>
     </div>
 
+    <div style="text-align: center; margin-top: 2rem;">
+        <a href="/" class="home-button">🏠 홈으로 가기</a>
+    </div>
+
     <div class="vote-container">
         <form th:action="@{/vote/update/{id}(id=${vote.id})}" method="post" class="vote-form" onsubmit="return validateForm()">
             <input type="hidden" name="voteType" th:value="${vote.voteType}">

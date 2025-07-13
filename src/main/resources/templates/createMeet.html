@@ -45,6 +45,10 @@
         <h2 class="main-title">비공개 투표 모임 만들기</h2>
     </div>
 
+    <div style="text-align: center; margin-top: 2rem;">
+        <a href="/" class="home-button">🏠 홈으로 가기</a>
+    </div>
+
     <div class="vote-container">
         <form class="vote-form" action="#" th:action="@{/meet/new}" th:object="${meet}" method="post" onsubmit="return validateForm()">
             <div>

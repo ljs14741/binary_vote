@@ -47,6 +47,10 @@
         <h2 class="main-title" th:text="${vote.title}">익명 투표하기</h2>
     </div>
 
+    <div style="text-align: center; margin-top: 2rem;">
+        <a href="/" class="home-button">🏠 홈으로 가기</a>
+    </div>
+
     <div class="vote-container">
         <p th:if="${vote.allowMultipleVotes}" style="color: green;">중복투표: O</p>
             <span th:if="${vote.maxOptions != null}"> (최대 선택 옵션 개수: [[${vote.maxOptions}]])</span>

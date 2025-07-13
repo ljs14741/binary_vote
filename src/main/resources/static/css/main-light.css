@@ -209,6 +209,137 @@ body {
 .link-icon.facebook { background-image: url(../img/icon-facebook.png); }
 .link-icon.kakao { background-image: url(../img/icon-kakao.png); }
 
+/* ===== 방명록 ===== */
+.guestbook {
+    max-width: 800px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    padding: 2rem 1rem;
+    margin: 0 auto;
+}
+
+.guestbook h2 {
+    text-align: center;
+    color: #4682B4;
+    margin-bottom: 1rem;
+}
+
+.guestbook-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+}
+
+.guestbook-form input,
+.guestbook-form textarea {
+    font-size: 1rem;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    resize: vertical;
+}
+
+.guestbook-form textarea {
+    height: 100px;
+}
+
+.guestbook-submit {
+    background-color: #4682B4;
+    color: #fff;
+    padding: 0.6rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.guestbook-submit:hover {
+    background-color: #315f7c;
+}
+
+/* ===== 댓글 목록 ===== */
+.guestbook-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.guestbook-item {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.guestbook-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.guestbook-name {
+    color: #4682B4;
+    font-weight: 600;
+}
+
+.guestbook-date {
+    font-size: 0.85rem;
+    color: #999;
+}
+
+.guestbook-content {
+    margin: 0.5rem 0;
+    color: #333;
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
+.guestbook-delete {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    color: #999;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.3s;
+}
+.guestbook-delete:hover {
+    background-color: #ffdddd;
+    border-color: #ff9999;
+    color: #c00;
+}
+
+.guestbook-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.guestbook-pagination button {
+    padding: 0.4rem 1rem;
+    font-size: 0.95rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.guestbook-pagination button:disabled {
+    background-color: #e0e0e0;
+    cursor: not-allowed;
+}
+
 /* ===== 반응형 ===== */
 @media (max-width: 768px) {
     .nav-toggle { display: block; }
@@ -252,6 +383,33 @@ body {
     }
     .page-content p {
         font-size: 0.95rem;
+    }
+
+    .guestbook {
+        padding: 1rem;
+    }
+
+    .guestbook-form input,
+    .guestbook-form textarea {
+        font-size: 0.95rem;
+    }
+
+    .guestbook-submit {
+        font-size: 0.95rem;
+    }
+
+    .guestbook-delete {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .guestbook-pagination {
+        gap: 0.5rem;
+    }
+
+    .guestbook-pagination button {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.85rem;
     }
 }
 
@@ -418,6 +576,59 @@ h2 {
 
 .vote-item.empty {
     display: none;
+}
+
+/*페이징*/
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 1rem;
+}
+
+.pagination-button {
+    padding: 0.6rem 1.2rem;
+    background-color: #4682B4;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.pagination-button:hover {
+    background-color: #315f7c;
+    transform: scale(1.05);
+}
+
+.pagination-button.disabled {
+    background-color: #ccc;
+    color: #888;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.pagination-info {
+    font-size: 1rem;
+    color: #333;
+}
+
+.home-button {
+    display: inline-block;
+    background-color: #38b2ac;
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.home-button:hover {
+    background-color: #319795;
+    transform: scale(1.05);
 }
 
 /* 애니메이션 효과 */
