@@ -41,8 +41,17 @@ public class VoteService {
 
     public Page<Vote> getPagedPublicVotes(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
-        return voteRepository.findByVoteType(Vote.VoteType.PUBLIC, pageable);
+        Page<Vote> votePage = voteRepository.findByVoteType(Vote.VoteType.PUBLIC, pageable);
+
+        votePage.getContent().forEach(vote -> {
+            if (vote.getCreatedDate() != null) {
+                vote.setFormattedCreatedDate(vote.getCreatedDate().format(formatter));
+            }
+        });
+
+        return votePage;
     }
+
 
     @Transactional
     public Vote createVote(VoteDTO voteDTO, List<String> options) {
