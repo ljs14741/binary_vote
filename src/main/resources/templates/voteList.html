@@ -1,26 +1,27 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>무료 익명 투표 사이트 | Binary World</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="누구나 쉽게 익명 투표를 만들고 참여하세요. 무료로 온라인 설문을 시작할 수 있습니다.">
+    <meta name="description" content="무료 익명 투표를 간편하게 만들고 참여하세요. 공개·비공개 지원, 회원가입 없이 1분 만에 시작 — Binary World.">
     <meta name="keywords" content="익명 투표, 온라인 투표, 무료 투표 사이트, 공개투표, 비공개투표, 설문조사">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Binary World">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://vote.binaryworld.kr">
+    <meta property="og:url" content="https://vote.binaryworld.kr/" />
+    <link rel="canonical" href="https://vote.binaryworld.kr/" />
     <meta property="og:title" content="무료 익명 투표 사이트 | Binary World">
-    <meta property="og:description" content="쉽고 빠른 익명 온라인 투표 플랫폼. 설문조사와 의견 수렴을 무료로 시작해보세요.">
+    <meta property="og:description" content="무료 익명 투표를 간편하게 만들고 참여하세요. 공개·비공개 지원, 회원가입 없이 1분 만에 시작 — Binary World.">
     <meta property="og:image" content="https://vote.binaryworld.kr/img/radish.png">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="무료 익명 투표 사이트 | Binary World">
-    <meta name="twitter:description" content="누구나 간편하게 참여 가능한 무료 익명 투표 서비스.">
+    <meta name="twitter:description" content="무료 익명 투표를 간편하게 만들고 참여하세요. 공개·비공개 지원, 회원가입 없이 1분 만에 시작 — Binary World.">
     <meta name="twitter:image" content="https://vote.binaryworld.kr/img/radish.png">
 
     <!-- ✅ 파비콘 (모든 디바이스용 포함) -->
@@ -47,7 +48,6 @@
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
-
     <!-- Stylesheet -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
     <link id="theme-style" rel="stylesheet" th:href="@{/css/main-light.css}">
@@ -62,7 +62,7 @@
 
     <div class="page-title">
         <h1>무료 익명 투표 사이트</h1>
-        <p>누구나 쉽게 참여하는 설문 플랫폼</p>
+        <p>무료 익명 투표 설문, 누구나 쉽게 만들고 참여하세요. 회원가입 없이 바로 시작!</p>
     </div>
 
     <div class="icon-container">
