@@ -1035,9 +1035,23 @@ h2 {
 
 /* 반응형 */
 @media (max-width: 768px) {
+    .modal-overlay {
+        /* ✨ 상단에 20px 여백을 강제하여 노치 영역 회피 */
+        align-items: flex-start; /* 내용을 상단부터 배치하도록 변경 */
+        padding: 20px 0 20px 0; /* 모달 전체를 상하로 20px 띄우기 */
+        overflow-y: auto; /* 모달이 길 경우 전체 화면 스크롤 허용 */
+    }
+
+    /* 2. 모달 본문 (Mobile Sizing) */
     .modal-content {
-        padding: 1.2rem 1rem !important; /* 모바일에서 패딩 줄이기 */
-        border-radius: 8px !important;    /* 모바일에서 모서리를 조금 덜 둥글게 */
+        margin-top: 0; /* 상단 배치가 바뀌었으므로 기존 마진 제거 */
+        /* width, padding 등 기존 모바일 설정은 유지됩니다. */
+    }
+
+    /* 3. X 버튼 위치 조정 (안전 영역에 맞춤) */
+    .close-modal-fixed {
+        top: 35px !important;  /* 상단 안전영역(20px) + 버튼 자체 여백 확보 */
+        right: 35px !important; /* 우측 여백 확보 */
     }
 
     .vote-options {
