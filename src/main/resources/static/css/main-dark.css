@@ -1035,6 +1035,8 @@ h2 {
 
 /* 반응형 */
 @media (max-width: 768px) {
+
+
     .vote-options {
         grid-template-columns: 1fr;
     }

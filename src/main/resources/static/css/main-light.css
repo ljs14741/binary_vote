@@ -1019,6 +1019,11 @@ h2 {
 
 /* 반응형 */
 @media (max-width: 768px) {
+    .modal-content {
+        padding: 1.2rem 1rem !important; /* 모바일에서 패딩 줄이기 */
+        border-radius: 8px !important;    /* 모바일에서 모서리를 조금 덜 둥글게 */
+    }
+
     .vote-options {
         grid-template-columns: 1fr;
     }
