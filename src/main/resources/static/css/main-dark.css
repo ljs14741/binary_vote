@@ -819,6 +819,38 @@ h2 {
     transform: scale(1.05);
 }
 
+.list-header {
+    display: flex;
+    justify-content: space-between; /* 양끝 정렬 */
+    align-items: center;            /* 수직 중앙 정렬 */
+    margin-bottom: 15px;
+    padding: 0 5px;
+}
+
+.list-header h2 {
+    margin: 0;
+    color: #f7fafc; /* 제목: 거의 흰색 */
+}
+
+.sort-options a {
+    text-decoration: none;
+    color: #a0aec0; /* 비활성 링크: 밝은 회색 (잘 보이게 조정함) */
+    font-size: 0.9rem;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.sort-options a:hover {
+    color: #ffffff; /* 마우스 올리면: 완전 흰색 */
+}
+
+.sort-options a.active {
+    color: #63b3ed; /* 활성화된 탭: 밝은 형광 하늘색 (다크모드 포인트 컬러) */
+    font-weight: bold;
+    border-bottom: 2px solid #63b3ed;
+}
+
 /* 반응형 */
 @media (max-width: 768px) {
     .vote-options {

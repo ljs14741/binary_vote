@@ -39,19 +39,36 @@ public class VoteService {
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일 a h시 m분");
 
-    public Page<Vote> getPagedPublicVotes(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
-        Page<Vote> votePage = voteRepository.findByVoteType(Vote.VoteType.PUBLIC, pageable);
+    public Page<Vote> getPagedPublicVotes(int page, int size, String sort) {
 
+        // 1. 인기순 정렬 요청인 경우
+        if ("popular".equals(sort)) {
+            // 인기순은 Repository의 커스텀 쿼리 사용 (Pageable에는 size와 page 정보만 전달)
+            Pageable pageable = PageRequest.of(page, size);
+            Page<Vote> votePage = voteRepository.findByVoteTypeOrderByPopularity(Vote.VoteType.PUBLIC, pageable);
+
+            formatCreatedDate(votePage); // 날짜 포맷팅 로직 추출
+            return votePage;
+        }
+
+        // 2. 최신순(기본) 정렬 요청인 경우
+        else {
+            Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+            Page<Vote> votePage = voteRepository.findByVoteType(Vote.VoteType.PUBLIC, pageable);
+
+            formatCreatedDate(votePage);
+            return votePage;
+        }
+    }
+
+    // (중복 코드 제거용 헬퍼 메서드)
+    private void formatCreatedDate(Page<Vote> votePage) {
         votePage.getContent().forEach(vote -> {
             if (vote.getCreatedDate() != null) {
                 vote.setFormattedCreatedDate(vote.getCreatedDate().format(formatter));
             }
         });
-
-        return votePage;
     }
-
 
     @Transactional
     public Vote createVote(VoteDTO voteDTO, List<String> options) {

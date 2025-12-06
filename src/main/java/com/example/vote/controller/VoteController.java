@@ -56,12 +56,13 @@ public class VoteController {
     @GetMapping("/")
     public String publicListVotes(@RequestParam(defaultValue = "0") int page,
                                   @RequestParam(defaultValue = "10") int size,
+                                  @RequestParam(defaultValue = "latest") String sort,
                                   Model model,
                                   HttpSession session,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
 
-        Page<Vote> votePage = voteService.getPagedPublicVotes(page, size);
+        Page<Vote> votePage = voteService.getPagedPublicVotes(page, size, sort);
         Map<Long, Long> voteResults = new HashMap<>();
 
         for (Vote vote : votePage.getContent()) {
@@ -74,6 +75,8 @@ public class VoteController {
         model.addAttribute("voteResults", voteResults);
         model.addAttribute("currentPage", votePage.getNumber());
         model.addAttribute("totalPages", votePage.getTotalPages());
+
+        model.addAttribute("currentSort", sort);
 
         List<MeetDTO> meets = meetService.getAllMeets();
         model.addAttribute("meets", meets);

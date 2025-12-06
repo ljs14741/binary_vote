@@ -809,6 +809,30 @@ h2 {
 }
 
 
+.list-header {
+    display: flex;
+    justify-content: space-between; /* 양끝 정렬 */
+    align-items: center;            /* 수직 중앙 정렬 */
+    margin-bottom: 15px;
+    padding: 0 5px;
+}
+.list-header h2 {
+    margin: 0; /* 제목의 기본 마진 제거 */
+}
+.sort-options a {
+    text-decoration: none;
+    color: #888;
+    font-size: 0.9rem;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.sort-options a.active {
+    color: #3b82f6; /* 활성화된 탭 색상 (파란색) */
+    font-weight: bold;
+    border-bottom: 2px solid #3b82f6;
+}
+
+
 /* 반응형 */
 @media (max-width: 768px) {
     .vote-options {

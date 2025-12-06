@@ -10,7 +10,6 @@
     <meta name="robots" content="index, follow">
     <meta name="author" content="Binary World">
 
-    <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://vote.binaryworld.kr/" />
     <link rel="canonical" href="https://vote.binaryworld.kr/" />
@@ -18,74 +17,60 @@
     <meta property="og:description" content="무료 익명 투표를 간편하게 만들고 참여하세요. 공개·비공개 지원, 회원가입 없이 1분 만에 시작 — Binary World.">
     <meta property="og:image" content="https://vote.binaryworld.kr/img/radish.png">
 
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="무료 익명 투표 사이트 | Binary World">
     <meta name="twitter:description" content="무료 익명 투표를 간편하게 만들고 참여하세요. 공개·비공개 지원, 회원가입 없이 1분 만에 시작 — Binary World.">
     <meta name="twitter:image" content="https://vote.binaryworld.kr/img/radish.png">
 
-    <!-- ✅ 파비콘 (모든 디바이스용 포함) -->
     <link rel="icon" href="/img/favicon/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/img/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/img/favicon/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/img/favicon/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-
-    <!-- CSRF (Spring Security) -->
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
-    <!-- Stylesheet -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
     <link id="theme-style" rel="stylesheet" th:href="@{/css/main-light.css}">
 
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6890085609044109" crossorigin="anonymous"></script>
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6890085609044109"
-            crossorigin="anonymous"></script>
 </head>
 <body>
 <th:block th:include="common/header"></th:block>
 
-    <div class="page-title">
-        <h1>무료 익명 투표 사이트</h1>
-        <p>무료 익명 투표 설문, 누구나 쉽게 만들고 참여하세요. 회원가입 없이 바로 시작!</p>
-    </div>
+<div class="page-title">
+    <h1>무료 익명 투표 사이트</h1>
+    <p>무료 익명 투표 설문, 누구나 쉽게 만들고 참여하세요. 회원가입 없이 바로 시작!</p>
+</div>
 
-    <div class="icon-container">
-        <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();"></a>
-        <a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();"></a>
-        <a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();"></a>
-    </div>
+<div class="icon-container">
+    <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();"></a>
+    <a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();"></a>
+    <a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();"></a>
+</div>
 
-    <div class="vote-list-container">
-        <div class="tab-buttons-wrapper">
-            <div class="tab-buttons">
-                <button class="tab-button active" onclick="openTab(event, 'public-votes')">공개투표</button>
-                <button class="tab-button" onclick="openTab(event, 'private-votes')">비공개투표</button>
-            </div>
-            <form id="create-vote-form" th:action="@{/vote/create}" method="get" class="create-vote-form">
-                <input type="hidden" name="voteType" value="PUBLIC">
-                <button type="submit" class="create-vote-button">투표 만들기!</button>
-            </form>
+<div class="vote-list-container">
+    <div class="tab-buttons-wrapper">
+        <div class="tab-buttons">
+            <button class="tab-button active" onclick="openTab(event, 'public-votes')">공개투표</button>
+            <button class="tab-button" onclick="openTab(event, 'private-votes')">비공개투표</button>
         </div>
+        <form id="create-vote-form" th:action="@{/vote/create}" method="get" class="create-vote-form">
+            <input type="hidden" name="voteType" value="PUBLIC">
+            <button type="submit" class="create-vote-button">투표 만들기!</button>
+        </form>
+    </div>
 
-        <!-- 공개 투표 탭 내용 -->
-        <div id="public-votes" class="tab">
+    <div id="public-votes" class="tab">
+
+        <div class="list-header">
             <h2>공개 투표 목록</h2>
+            <div class="sort-options">
+                <a th:href="@{/(page=0, sort='popular')}"
+                   th:classappend="${currentSort == 'popular'} ? 'active'">🔥 인기순</a>
+
+                <a th:href="@{/(page=0, sort='latest')}"
+                   th:classappend="${currentSort == 'latest' or currentSort == null} ? 'active'">🕒 최신순</a>
+            </div>
+        </div>
         <ul class="vote-options">
             <li th:each="vote : ${votes}" class="vote-item">
                 <div class="vote-info">
@@ -114,7 +99,6 @@
             <li class="vote-item empty"></li>
         </ul>
 
-        <!-- ✅ 페이지네이션 -->
         <div class="pagination">
             <button class="pagination-button"
                     th:classappend="${currentPage == 0} ? ' disabled'"
@@ -128,218 +112,208 @@
                     th:onclick="'goToPage(' + (${currentPage} + 1) + ')'">다음</button>
         </div>
 
-        </div>
     </div>
+</div>
 
-    <div class="guestbook">
-        <h2>📖 방명록</h2>
-
-        <form class="guestbook-form">
-            <input type="text" placeholder="닉네임" class="guestbook-nickname" required>
-            <input type="password" placeholder="비밀번호" class="guestbook-password" required>
-            <textarea placeholder="방문한 소감을 남겨주세요 😊" class="guestbook-message" required></textarea>
-            <button type="submit" class="guestbook-submit">등록</button>
-        </form>
-
-        <ul class="guestbook-list">
-        </ul>
-
-        <div class="guestbook-pagination">
-            <button id="prevPage">이전</button>
-            <span id="pageInfo">1</span>
-            <button id="nextPage">다음</button>
-        </div>
+<div class="guestbook">
+    <h2>📖 방명록</h2>
+    <form class="guestbook-form">
+        <input type="text" placeholder="닉네임" class="guestbook-nickname" required>
+        <input type="password" placeholder="비밀번호" class="guestbook-password" required>
+        <textarea placeholder="방문한 소감을 남겨주세요 😊" class="guestbook-message" required></textarea>
+        <button type="submit" class="guestbook-submit">등록</button>
+    </form>
+    <ul class="guestbook-list"></ul>
+    <div class="guestbook-pagination">
+        <button id="prevPage">이전</button>
+        <span id="pageInfo">1</span>
+        <button id="nextPage">다음</button>
     </div>
+</div>
 
-    <th:block th:include="common/footer"></th:block>
+<th:block th:include="common/footer"></th:block>
 
-    <script th:inline="javascript">
-        // 1. 햄버거 메뉴 토글
-        const toggleBtn = document.querySelector('.nav-toggle');
-        const nav = document.querySelector('.nav-links');
+<script th:inline="javascript">
+    // (기존 스크립트 유지)
+    const toggleBtn = document.querySelector('.nav-toggle');
+    const nav = document.querySelector('.nav-links');
 
-        if (toggleBtn && nav) {
-            toggleBtn.addEventListener('click', () => {
-                toggleBtn.classList.toggle('active');
-                nav.classList.toggle('open');
-            });
-        }
-
-        // 2. 테마 토글
-        const themeToggle = document.getElementById('themeToggle');
-        const themeLink = document.getElementById('theme-style');
-        const currentTheme = localStorage.getItem('theme') || 'light';
-
-        applyTheme(currentTheme);
-
-        if (themeToggle && themeLink) {
-            themeToggle.addEventListener('click', () => {
-                const isDark = themeLink.getAttribute('href').includes('dark');
-                const nextTheme = isDark ? 'light' : 'dark';
-                applyTheme(nextTheme);
-            });
-        }
-
-        function applyTheme(theme) {
-            themeLink.setAttribute('href', `/css/main-${theme}.css`);
-            localStorage.setItem('theme', theme);
-        }
-
-        function checkPasswordAndSubmit(form, action, method = 'POST') {
-            const password = prompt("비밀번호를 입력하세요:");
-            if (password !== null) {
-                const voteId = form.voteId.value;
-                const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-                const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
-
-                fetch('/vote/checkPassword', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        [csrfHeader]: csrfToken // CSRF 토큰을 헤더에 포함
-                    },
-                    body: JSON.stringify({ voteId: voteId, password: password })
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        if (data.success) {
-                            if (method === 'GET') {
-                                // GET 요청으로 페이지 리다이렉트
-                                window.location.href = action;
-                            } else {
-                                // POST 요청으로 폼을 동적으로 생성하여 제출
-                                const tempForm = document.createElement("form");
-                                tempForm.method = method;
-                                tempForm.action = action;
-
-                                const inputVoteId = document.createElement("input");
-                                inputVoteId.type = "hidden";
-                                inputVoteId.name = "voteId";
-                                inputVoteId.value = voteId;
-                                tempForm.appendChild(inputVoteId);
-
-                                const inputPassword = document.createElement("input");
-                                inputPassword.type = "hidden";
-                                inputPassword.name = "password";
-                                inputPassword.value = password;
-                                tempForm.appendChild(inputPassword);
-
-                                const inputCsrf = document.createElement("input");
-                                inputCsrf.type = "hidden";
-                                inputCsrf.name = "_csrf";
-                                inputCsrf.value = csrfToken;
-                                tempForm.appendChild(inputCsrf);
-
-                                document.body.appendChild(tempForm);
-                                tempForm.submit();
-                            }
-                        } else {
-                            alert('비밀번호가 틀렸습니다.'); // 비밀번호가 틀리면 경고창 표시
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('An error occurred. Please try again.');
-                    });
-            }
-            return false; // 폼의 기본 제출 동작을 막음
-        }
-
-        // 탭 열기 함수
-        function openTab(evt, tabName) {
-            if (tabName === 'private-votes') {
-                window.location.href = '/meet/privateVoteList';
-                return;
-            }
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tab-button");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(tabName).style.display = "block";
-            if (evt) {
-                evt.currentTarget.className += " active";
-            } else {
-                document.querySelector(`.tab-button[onclick="openTab(event, '${tabName}')"]`).className += " active";
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            // 서버로부터 activeTab 정보를 받아 해당 탭을 활성화
-            var activeTab = 'public-votes';
-            openTab(null, activeTab);
+    if (toggleBtn && nav) {
+        toggleBtn.addEventListener('click', () => {
+            toggleBtn.classList.toggle('active');
+            nav.classList.toggle('open');
         });
+    }
 
-        function shareTwitter() {
-            var sendText = "익명투표에 참여하세요~"; // 전달할 텍스트
-            var sendUrl = "https://vote.binaryworld.kr"; // 전달할 URL
-            window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
-        }
+    const themeToggle = document.getElementById('themeToggle');
+    const themeLink = document.getElementById('theme-style');
+    const currentTheme = localStorage.getItem('theme') || 'light';
 
-        function shareFacebook() {
-            var sendUrl = "https://vote.binaryworld.kr"; // 전달할 URL
-            window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
-        }
+    applyTheme(currentTheme);
 
-        function setupKakaoShareButton() {
-            if (!window.Kakao) return;
-            if (!document.querySelector('#btnKakao')) return;
+    if (themeToggle && themeLink) {
+        themeToggle.addEventListener('click', () => {
+            const isDark = themeLink.getAttribute('href').includes('dark');
+            const nextTheme = isDark ? 'light' : 'dark';
+            applyTheme(nextTheme);
+        });
+    }
 
-            if (!Kakao.isInitialized()) {
-                Kakao.init('8b68c737be6b8e9a8007c61ee6f9b8da');
-            }
+    function applyTheme(theme) {
+        themeLink.setAttribute('href', `/css/main-${theme}.css`);
+        localStorage.setItem('theme', theme);
+    }
 
-            Kakao.Share.createDefaultButton({
-                container: '#btnKakao',
-                objectType: 'feed',
-                content: {
-                    title: '익명투표',
-                    description: '익명투표에 참여하세요~',
-                    imageUrl: 'https://vote.binaryworld.kr/img/radish.png',
-                    link: {
-                        mobileWebUrl: 'https://vote.binaryworld.kr',
-                        webUrl: 'https://vote.binaryworld.kr'
-                    }
-                }
-            });
-        }
+    function checkPasswordAndSubmit(form, action, method = 'POST') {
+        const password = prompt("비밀번호를 입력하세요:");
+        if (password !== null) {
+            const voteId = form.voteId.value;
+            const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+            const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
-        setupKakaoShareButton();
-
-        function goToPage(page) {
-            const button = event.target;
-            if (button.classList.contains('disabled')) return;
-
-            const params = new URLSearchParams(window.location.search);
-            const size = params.get("size") || 10;
-            window.location.href = `/?page=${page}&size=${size}`;
-        }
-
-        let currentPage = 0;
-        let pageSize = 5;
-
-        let form = document.querySelector('.guestbook-form');
-        let list = document.querySelector('.guestbook-list');
-
-        // 1. 방명록 불러오기
-        function loadGuestbook() {
-            fetch('/api/guestbook')
-                .then(res => res.json())
+            fetch('/vote/checkPassword', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    [csrfHeader]: csrfToken
+                },
+                body: JSON.stringify({ voteId: voteId, password: password })
+            })
+                .then(response => {
+                    if (!response.ok) { throw new Error('Network response was not ok'); }
+                    return response.json();
+                })
                 .then(data => {
-                    list.innerHTML = '';
-                    data.forEach(item => {
-                        let li = document.createElement('li');
-                        li.className = 'guestbook-item';
-                        li.innerHTML = `
+                    if (data.success) {
+                        if (method === 'GET') {
+                            window.location.href = action;
+                        } else {
+                            const tempForm = document.createElement("form");
+                            tempForm.method = method;
+                            tempForm.action = action;
+
+                            const inputVoteId = document.createElement("input");
+                            inputVoteId.type = "hidden";
+                            inputVoteId.name = "voteId";
+                            inputVoteId.value = voteId;
+                            tempForm.appendChild(inputVoteId);
+
+                            const inputPassword = document.createElement("input");
+                            inputPassword.type = "hidden";
+                            inputPassword.name = "password";
+                            inputPassword.value = password;
+                            tempForm.appendChild(inputPassword);
+
+                            const inputCsrf = document.createElement("input");
+                            inputCsrf.type = "hidden";
+                            inputCsrf.name = "_csrf";
+                            inputCsrf.value = csrfToken;
+                            tempForm.appendChild(inputCsrf);
+
+                            document.body.appendChild(tempForm);
+                            tempForm.submit();
+                        }
+                    } else {
+                        alert('비밀번호가 틀렸습니다.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                });
+        }
+        return false;
+    }
+
+    function openTab(evt, tabName) {
+        if (tabName === 'private-votes') {
+            window.location.href = '/meet/privateVoteList';
+            return;
+        }
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tab-button");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        if (evt) {
+            evt.currentTarget.className += " active";
+        } else {
+            document.querySelector(`.tab-button[onclick="openTab(event, '${tabName}')"]`).className += " active";
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var activeTab = 'public-votes';
+        openTab(null, activeTab);
+    });
+
+    // (공유 기능 함수들 유지)
+    function shareTwitter() {
+        var sendText = "익명투표에 참여하세요~";
+        var sendUrl = "https://vote.binaryworld.kr";
+        window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+    }
+
+    function shareFacebook() {
+        var sendUrl = "https://vote.binaryworld.kr";
+        window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+    }
+
+    function setupKakaoShareButton() {
+        if (!window.Kakao) return;
+        if (!document.querySelector('#btnKakao')) return;
+        if (!Kakao.isInitialized()) {
+            Kakao.init('8b68c737be6b8e9a8007c61ee6f9b8da');
+        }
+        Kakao.Share.createDefaultButton({
+            container: '#btnKakao',
+            objectType: 'feed',
+            content: {
+                title: '익명투표',
+                description: '익명투표에 참여하세요~',
+                imageUrl: 'https://vote.binaryworld.kr/img/radish.png',
+                link: {
+                    mobileWebUrl: 'https://vote.binaryworld.kr',
+                    webUrl: 'https://vote.binaryworld.kr'
+                }
+            }
+        });
+    }
+    setupKakaoShareButton();
+
+    // ✅ [수정됨] 페이지 이동 시 sort 파라미터 유지
+    function goToPage(page) {
+        const button = event.target;
+        if (button.classList.contains('disabled')) return;
+
+        const params = new URLSearchParams(window.location.search);
+        const size = params.get("size") || 10;
+
+        // 현재 정렬 상태도 가져옵니다.
+        const sort = params.get("sort") || 'latest';
+
+        window.location.href = `/?page=${page}&size=${size}&sort=${sort}`;
+    }
+
+    let currentPage = 0;
+    let pageSize = 5;
+    let form = document.querySelector('.guestbook-form');
+    let list = document.querySelector('.guestbook-list');
+
+    function loadGuestbook() {
+        fetch('/api/guestbook')
+            .then(res => res.json())
+            .then(data => {
+                list.innerHTML = '';
+                data.forEach(item => {
+                    let li = document.createElement('li');
+                    li.className = 'guestbook-item';
+                    li.innerHTML = `
             <div class="guestbook-header">
               <strong class="guestbook-name">${item.nickname}</strong>
               <span class="guestbook-date">${item.createdAt?.substring(0, 10)}</span>
@@ -347,84 +321,81 @@
             <p class="guestbook-content">${item.content}</p>
             <button class="guestbook-delete" data-id="${item.id}">삭제</button>
           `;
-                        list.appendChild(li);
-                    });
-                })
-                .catch(err => {
-                    console.error('불러오기 실패:', err);
-                    alert('방명록을 불러오지 못했습니다.');
+                    list.appendChild(li);
                 });
+            })
+            .catch(err => {
+                console.error('불러오기 실패:', err);
+                alert('방명록을 불러오지 못했습니다.');
+            });
+    }
+
+    loadGuestbook();
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        let nickname = form.querySelector('.guestbook-nickname').value.trim();
+        let password = form.querySelector('.guestbook-password').value.trim();
+        let content = form.querySelector('.guestbook-message').value.trim();
+
+        if (!nickname || !password || !content) {
+            alert('모든 필드를 입력해주세요.');
+            return;
+        }
+        if (nickname.length > 10) {
+            alert('닉네임은 10자 이하로 입력해주세요.');
+            return;
+        }
+        if (password.length > 20) {
+            alert('비밀번호는 20자 이하로 입력해주세요.');
+            return;
+        }
+        if (content.length > 1000) {
+            alert('내용이 너무 깁니다. 1000자 이하로 작성해주세요.');
+            return;
         }
 
-        loadGuestbook(); // 초기 로딩
+        fetch('/api/guestbook', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nickname, password, content })
+        }).then(res => {
+            if (res.ok) {
+                form.reset();
+                loadGuestbookPage(0);
+            } else {
+                alert('등록에 실패했습니다.');
+            }
+        });
+    });
 
-        // 2. 등록 이벤트
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            let nickname = form.querySelector('.guestbook-nickname').value.trim();
-            let password = form.querySelector('.guestbook-password').value.trim();
-            let content = form.querySelector('.guestbook-message').value.trim();
+    list.addEventListener('click', e => {
+        if (e.target.classList.contains('guestbook-delete')) {
+            let id = e.target.dataset.id;
+            let pw = prompt('비밀번호를 입력하세요');
+            if (!pw) return;
 
-            if (!nickname || !password || !content) {
-                alert('모든 필드를 입력해주세요.');
-                return;
-            }
-            if (nickname.length > 10) {
-                alert('닉네임은 10자 이하로 입력해주세요.');
-                return;
-            }
-            if (password.length > 20) {
-                alert('비밀번호는 20자 이하로 입력해주세요.');
-                return;
-            }
-            if (content.length > 1000) {
-                alert('내용이 너무 깁니다. 1000자 이하로 작성해주세요.');
-                return;
-            }
-
-            fetch('/api/guestbook', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nickname, password, content })
+            fetch(`/api/guestbook/${id}?password=${encodeURIComponent(pw)}`, {
+                method: 'DELETE'
             }).then(res => {
                 if (res.ok) {
-                    form.reset();
                     loadGuestbookPage(0);
                 } else {
-                    alert('등록에 실패했습니다.');
+                    alert('비밀번호가 틀렸습니다.');
                 }
             });
-        });
+        }
+    });
 
-        // 3. 삭제 이벤트 (버튼 클릭 시)
-        list.addEventListener('click', e => {
-            if (e.target.classList.contains('guestbook-delete')) {
-                let id = e.target.dataset.id;
-                let pw = prompt('비밀번호를 입력하세요');
-                if (!pw) return;
-
-                fetch(`/api/guestbook/${id}?password=${encodeURIComponent(pw)}`, {
-                    method: 'DELETE'
-                }).then(res => {
-                    if (res.ok) {
-                        loadGuestbookPage(0);
-                    } else {
-                        alert('비밀번호가 틀렸습니다.');
-                    }
-                });
-            }
-        });
-
-        // 4. 페이징
-        function loadGuestbookPage(page = 0) {
-            fetch(`/api/guestbook/paged?page=${page}&size=${pageSize}`)
-                .then(res => res.json())
-                .then(data => {
-                    list.innerHTML = '';
-                    data.content.forEach(item => {
-                        const li = document.createElement('li');
-                        li.className = 'guestbook-item';
-                        li.innerHTML = `
+    function loadGuestbookPage(page = 0) {
+        fetch(`/api/guestbook/paged?page=${page}&size=${pageSize}`)
+            .then(res => res.json())
+            .then(data => {
+                list.innerHTML = '';
+                data.content.forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = 'guestbook-item';
+                    li.innerHTML = `
           <div class="guestbook-header">
             <strong class="guestbook-name">${item.nickname}</strong>
             <span class="guestbook-date">${item.createdAt?.substring(0, 10)}</span>
@@ -432,26 +403,24 @@
           <p class="guestbook-content">${item.content}</p>
           <button class="guestbook-delete" data-id="${item.id}">삭제</button>
         `;
-                        list.appendChild(li);
-                    });
-
-                    currentPage = data.number;
-                    document.getElementById('pageInfo').textContent = `${currentPage + 1}`;
-                    document.getElementById('prevPage').disabled = data.first;
-                    document.getElementById('nextPage').disabled = data.last;
+                    list.appendChild(li);
                 });
-        }
 
-        // 페이지 이동 버튼
-        document.getElementById('prevPage').addEventListener('click', () => {
-            if (currentPage > 0) loadGuestbookPage(currentPage - 1);
-        });
-        document.getElementById('nextPage').addEventListener('click', () => {
-            loadGuestbookPage(currentPage + 1);
-        });
+                currentPage = data.number;
+                document.getElementById('pageInfo').textContent = `${currentPage + 1}`;
+                document.getElementById('prevPage').disabled = data.first;
+                document.getElementById('nextPage').disabled = data.last;
+            });
+    }
 
-        // 초기 로딩
-        loadGuestbookPage();
-    </script>
+    document.getElementById('prevPage').addEventListener('click', () => {
+        if (currentPage > 0) loadGuestbookPage(currentPage - 1);
+    });
+    document.getElementById('nextPage').addEventListener('click', () => {
+        loadGuestbookPage(currentPage + 1);
+    });
+
+    loadGuestbookPage();
+</script>
 </body>
 </html>
