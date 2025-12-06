@@ -227,11 +227,20 @@ public class VoteController {
     // 투표 결과 화면 조회
     @GetMapping("/vote/results/{id}")
     public String viewVoteResults(@PathVariable Long id, Model model) {
+        Vote vote = voteService.getVoteById(id);
         List<Options> options = voteService.getOptionsByVoteId(id);
         Map<Long, Long> results = voteService.getResultCountByVoteIdGrouped(id);
 
+        // ✅ [추가] 총 투표수 계산 (퍼센트 계산을 위해 필요)
+        long totalVotes = 0;
+        for (Long count : results.values()) {
+            totalVotes += count;
+        }
+
+        model.addAttribute("vote", vote);
         model.addAttribute("options", options);
         model.addAttribute("results", results);
+        model.addAttribute("totalVotes", totalVotes);
         return "voteResults";
     }
 

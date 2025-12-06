@@ -851,6 +851,188 @@ h2 {
     border-bottom: 2px solid #63b3ed;
 }
 
+
+/* 이용가이드 모달 */
+.guide-btn {
+    background-color: #2d3748;  /* 어두운 배경 */
+    border: 1px solid #4a5568;
+    border-radius: 20px;        /* ✨ 둥근 모양 복구 */
+    padding: 6px 14px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e2e8f0;             /* 밝은 글자 */
+    cursor: pointer;
+    vertical-align: middle;
+    margin-left: 10px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.guide-btn:hover {
+    background-color: #4a5568;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+/* 2. 모달 오버레이 (✨ 이게 없어서 안 떴던 것!) */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* 좀 더 어두운 배경 */
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(2px);
+}
+
+/* 3. 모달 본문 (다크 테마) */
+.modal-content {
+    background-color: #1a202c;  /* 어두운 배경 */
+    color: #f7fafc;             /* 밝은 글자 */
+    padding: 2.5rem;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    border: 1px solid #4a5568;  /* 테두리 추가 */
+    box-shadow: 0 20px 25px rgba(0,0,0,0.5);
+    position: relative;
+    text-align: left;
+    animation: popUp 0.3s ease;
+}
+
+/* 모달 제목 강제 적용 */
+.modal-content h2 {
+    color: #ffffff !important;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* 닫기 버튼 */
+.close-modal {
+    position: absolute;
+    top: 15px; right: 20px;
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #718096;
+}
+.close-modal:hover { color: #ffffff; }
+
+/* 내용 스타일 */
+.guide-section { margin-bottom: 2rem; }
+.guide-section h3 {
+    font-size: 1.2rem;
+    color: #63b3ed;             /* 형광 하늘색 포인트 */
+    margin-bottom: 0.8rem;
+    border-bottom: 2px solid #4a5568;
+    padding-bottom: 8px;
+}
+.guide-section ul {
+    list-style: none; padding-left: 0; color: #cbd5e0; line-height: 1.6;
+}
+.guide-section li {
+    margin-bottom: 6px; padding-left: 1.2rem; position: relative;
+}
+.guide-section li::before {
+    content: "•"; color: #63b3ed; font-weight: bold; position: absolute; left: 0;
+}
+
+.inquiry-note {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #4a5568; /* 어두운 선으로 구분 */
+    font-size: 0.9em;
+    color: #a0aec0; /* 본문 텍스트: 밝은 회색 */
+    line-height: 1.5;
+}
+
+.inquiry-note strong {
+    color: #63b3ed; /* '방명록' 강조색: 밝은 파란색 */
+    font-weight: 600;
+}
+
+/* 투표결과개선*/
+/* 1. 상단 차트/구분선 영역 */
+.result-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* 1. 상단 차트/구분선 영역 */
+.chart-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #4a5568; /* Color Override */
+}
+
+.vote-count-info {
+    color: #a0aec0; /* Color Override */
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+/* 2. 하단 리스트 영역 */
+.result-list-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: #f7fafc; /* Color Override */
+    border-left: 5px solid #63b3ed; /* Color Override */
+    padding-left: 10px;
+}
+.result-item {
+    margin-bottom: 1.2rem;
+}
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #e2e8f0; /* Color Override */
+}
+.progress-track {
+    background-color: #2d3748; /* Color Override */
+    border-radius: 8px;
+    height: 18px;
+    width: 100%;
+    overflow: hidden;
+}
+.progress-fill {
+    background-color: #4a5568; /* Color Override */
+    height: 100%;
+    border-radius: 8px;
+    transition: width 1s ease-in-out;
+    min-width: 0;
+}
+
+/* 4. 순위 강조 색상 */
+
+/* 1등 강조 색상 */
+.rank-1 .progress-fill { background-color: #63b3ed; } /* Color Override */
+.rank-1 .result-header { color: #63b3ed; } /* Color Override */
+
+/* 2등 강조 색상 */
+.rank-2 .progress-fill { background-color: #48bb78; } /* Color Override */
+
+/* 2등 강조 색상 */
+.rank-2 .progress-fill { background-color: #48bb78; } /* 초록색 (Green Accent) */
+
+@keyframes popUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 /* 반응형 */
 @media (max-width: 768px) {
     .vote-options {

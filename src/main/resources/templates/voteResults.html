@@ -29,6 +29,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
     <link id="theme-style" rel="stylesheet" th:href="@{/css/main-light.css}">
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6890085609044109"
             crossorigin="anonymous"></script>
 </head>
@@ -36,67 +37,202 @@
 <th:block th:include="common/header"></th:block>
 
 <div class="page-title">
-    <h1>무료 익명 투표 사이트</h1>
+    <h1>무료 익명 투표 사이트
+        <button onclick="openGuideModal()" class="guide-btn" type="button">📖 이용 가이드</button>
+    </h1>
     <p>누구나 쉽게 참여하는 설문 플랫폼</p>
 </div>
 
-<div style="text-align: center; margin-top: 2rem;">
+<div class="intro">
+    <h2 class="main-title" th:text="${vote.title}">투표 결과</h2>
+</div>
+
+<div class="result-container">
+
+    <div class="chart-section">
+        <div class="vote-count-info">
+            총 <strong style="color: #4299e1; font-size: 1.2em;" th:text="${totalVotes}">0</strong>명이 참여했습니다.
+        </div>
+        <div class="chart-wrapper">
+            <canvas id="voteChart"></canvas>
+        </div>
+    </div>
+
+    <div class="result-list-section">
+        <h3>📊 상세 결과 확인</h3>
+
+        <div th:each="option, stat : ${options}"
+             class="result-item"
+             th:classappend="${stat.index == 0} ? 'rank-1' : (${stat.index == 1} ? 'rank-2' : '')">
+
+            <th:block th:with="count=${results[option.optionNumber] != null ? results[option.optionNumber] : 0},
+                               percent=${totalVotes > 0 ? (count * 100 / totalVotes) : 0}">
+
+                <div class="result-header">
+                    <span th:text="${option.optionText}">옵션명</span>
+                    <span>
+                        <strong th:text="${count} + '표'">0표</strong>
+                        <span style="font-size: 0.9em; opacity: 0.7;" th:text="'(' + ${percent} + '%)'">(0%)</span>
+                    </span>
+                </div>
+
+                <div class="progress-track">
+                    <div class="progress-fill"
+                         th:style="'width:' + ${percent} + '%'">
+                    </div>
+                </div>
+
+            </th:block>
+        </div>
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 3rem; margin-bottom: 3rem;">
     <a href="/" class="home-button">🏠 홈으로 가기</a>
 </div>
 
-    <div class="table-responsive">
-        <div class="table-header">
-            <span class="table-title">투표 결과</span>
+<div id="guideModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeGuideModal()">&times;</span>
+        <h2 style="text-align:center; color:#333; margin-bottom:1.5rem;">📌 투표 이용 가이드</h2>
+
+        <div class="guide-section">
+            <h3>📢 공개 투표</h3>
+            <ul>
+                <li><strong>로그인 없이 3초 만에!</strong> 누구나 자유롭게 투표를 만들고 참여하세요.</li>
+                <li>탕수육 부먹vs찍먹, 밸런스 게임 등 <strong>재미있는 주제</strong>로 소통해요.</li>
+                <li><strong>🔥 인기순 정렬</strong>을 누르면 지금 가장 핫한 투표를 볼 수 있어요!</li>
+            </ul>
         </div>
-        <table class="styled-table vote-result-table">
-            <thead>
-            <tr>
-                <th>선택지</th>
-                <th>투표 수</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="option : ${options}">
-                <td th:text="${option.optionText}"></td>
-                <td th:text="${results[option.optionNumber] != null ? results[option.optionNumber] : 0}"></td>
-            </tr>
-            </tbody>
-        </table>
+
+        <div class="guide-section">
+            <h3>🔒 비공개 투표 (모임)</h3>
+            <ul>
+                <li><strong>모임 생성 필수!</strong> 먼저 모임(방)을 만들고, 그 안에서 투표를 생성하세요.</li>
+                <li><strong>비밀번호</strong>를 아는 멤버들끼리만 들어올 수 있는 비밀 공간입니다.</li>
+                <li>친구들과의 약속 장소, 점심 메뉴 등 우리만의 결정을 내릴 때 활용하세요.</li>
+            </ul>
+        </div>
+
+        <p class="inquiry-note">
+            문의사항이나 개선사항은 사이트 하단의 <strong>방명록</strong>에 남겨주세요!
+        </p>
     </div>
+</div>
 
 <th:block th:include="common/footer"></th:block>
 
 <script th:inline="javascript">
-    // 1. 햄버거 메뉴 토글
-    const toggleBtn = document.querySelector('.nav-toggle');
-    const nav = document.querySelector('.nav-links');
+    // ✅ [추가] 모달 제어 스크립트
+    function openGuideModal() {
+        document.getElementById('guideModal').style.display = 'flex';
+    }
 
-    if (toggleBtn && nav) {
-        toggleBtn.addEventListener('click', () => {
-            toggleBtn.classList.toggle('active');
-            nav.classList.toggle('open');
+    function closeGuideModal() {
+        document.getElementById('guideModal').style.display = 'none';
+    }
+
+    // 모달 바깥 배경 클릭 시 닫기
+    window.addEventListener('click', function(e) {
+        const modal = document.getElementById('guideModal');
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        // 1. 햄버거 메뉴 토글
+        const toggleBtn = document.querySelector('.nav-toggle');
+        const nav = document.querySelector('.nav-links');
+
+        if (toggleBtn && nav) {
+            toggleBtn.addEventListener('click', () => {
+                toggleBtn.classList.toggle('active');
+                nav.classList.toggle('open');
+            });
+        }
+
+        // 2. 테마 토글
+        const themeToggle = document.getElementById('themeToggle');
+        const themeLink = document.getElementById('theme-style');
+        const currentTheme = localStorage.getItem('theme') || 'light';
+
+        applyTheme(currentTheme);
+
+        if (themeToggle && themeLink) {
+            themeToggle.addEventListener('click', () => {
+                const isDark = themeLink.getAttribute('href').includes('dark');
+                const nextTheme = isDark ? 'light' : 'dark';
+                applyTheme(nextTheme);
+            });
+        }
+
+        function applyTheme(theme) {
+            themeLink.setAttribute('href', `/css/main-${theme}.css`);
+            localStorage.setItem('theme', theme);
+        }
+
+        // 결과화면
+
+        const labels = [];
+        const data = [];
+
+        /*[# th:each="option : ${options}"]*/
+        labels.push(/*[[${option.optionText}]]*/ "옵션");
+        // ✅ [에러 수정] 여기도 삼항 연산자로 안전하게 처리
+        data.push(/*[[${results[option.optionNumber] != null ? results[option.optionNumber] : 0}]]*/ 0);
+        /*[/]*/
+
+        // 데이터가 아예 없으면 차트를 그리지 않음 (오류 방지)
+        if (labels.length === 0) return;
+
+        const ctx = document.getElementById('voteChart').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: [
+                        '#4299e1', '#48bb78', '#f56565', '#ecc94b', '#9f7aea',
+                        '#ed64a6', '#38b2ac', '#ed8936', '#667eea', '#a0aec0'
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#ffffff',
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        // ✅ 옵션이 6개 이상이면 범례를 숨겨서 깔끔하게 만듦 (리스트가 있으니까!)
+                        display: labels.length <= 5,
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        callbacks: {
+                            label: function (context) {
+                                let label = context.label || '';
+                                let value = context.raw || 0;
+                                let total = context.chart._metasets[context.datasetIndex].total;
+                                let percentage = Math.round((value / total) * 100) + '%';
+                                return label + ': ' + value + '표 (' + percentage + ')';
+                            }
+                        }
+                    }
+                }
+            }
         });
-    }
-
-    // 2. 테마 토글
-    const themeToggle = document.getElementById('themeToggle');
-    const themeLink = document.getElementById('theme-style');
-    const currentTheme = localStorage.getItem('theme') || 'light';
-
-    applyTheme(currentTheme);
-
-    if (themeToggle && themeLink) {
-        themeToggle.addEventListener('click', () => {
-            const isDark = themeLink.getAttribute('href').includes('dark');
-            const nextTheme = isDark ? 'light' : 'dark';
-            applyTheme(nextTheme);
-        });
-    }
-
-    function applyTheme(theme) {
-        themeLink.setAttribute('href', `/css/main-${theme}.css`);
-        localStorage.setItem('theme', theme);
-    }
+    });
 </script>
 </body>
 </html>
