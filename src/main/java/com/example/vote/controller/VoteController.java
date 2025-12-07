@@ -20,10 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -237,6 +234,17 @@ public class VoteController {
             totalVotes += count;
         }
 
+        List<String> colorPalette = Arrays.asList(
+                "#4299e1", "#48bb78", "#f56565", "#ecc94b", "#9f7aea",
+                "#ed64a6", "#38b2ac", "#ed8936", "#667eea", "#a0aec0",
+                // 30개까지 반복
+                "#a3bffa", "#f6ad55", "#4299e1", "#48bb78", "#f56565",
+                "#ecc94b", "#9f7aea", "#ed64a6", "#38b2ac", "#ed8936",
+                "#667eea", "#a0aec0", "#a3bffa", "#f6ad55", "#4299e1",
+                "#48bb78", "#f56565", "#ecc94b", "#9f7aea", "#ed64a6"
+        );
+
+        model.addAttribute("colorPalette", colorPalette);
         model.addAttribute("vote", vote);
         model.addAttribute("options", options);
         model.addAttribute("results", results);

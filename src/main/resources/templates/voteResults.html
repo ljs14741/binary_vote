@@ -43,51 +43,51 @@
     <p>누구나 쉽게 참여하는 설문 플랫폼</p>
 </div>
 
-<div class="intro">
-    <h2 class="main-title" th:text="${vote.title}">투표 결과</h2>
-</div>
+<div th:with="colorPalette=${colorPalette}">
 
-<div class="result-container">
-
-    <div class="chart-section">
-        <div class="vote-count-info">
-            총 <strong style="color: #4299e1; font-size: 1.2em;" th:text="${totalVotes}">0</strong>명이 참여했습니다.
-        </div>
-        <div class="chart-wrapper">
-            <canvas id="voteChart"></canvas>
-        </div>
+    <div class="intro">
+        <h2 class="main-title" th:text="${vote.title}">투표 결과</h2>
     </div>
 
-    <div class="result-list-section">
-        <h3>📊 상세 결과 확인</h3>
+    <div class="result-container">
 
-        <div th:each="option, stat : ${options}"
-             class="result-item"
-             th:classappend="${stat.index == 0} ? 'rank-1' : (${stat.index == 1} ? 'rank-2' : '')">
+        <div class="chart-section">
+            <div class="vote-count-info">
+                총 <strong style="color: #4299e1; font-size: 1.2em;" th:text="${totalVotes}">0</strong>명이 참여했습니다.
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="voteChart"></canvas>
+            </div>
+        </div>
 
-            <th:block th:with="count=${results[option.optionNumber] != null ? results[option.optionNumber] : 0},
-                               percent=${totalVotes > 0 ? (count * 100 / totalVotes) : 0}">
+        <div class="result-list-section">
+            <h3>📊 상세 결과 확인</h3>
+
+            <div th:each="option, stat : ${options}"
+                 class="result-item"
+                 th:with="colorIndex=${stat.index % 30}"> <th:block th:with="count=${results[option.optionNumber] != null ? results[option.optionNumber] : 0},
+                                   percent=${totalVotes > 0 ? (count * 100 / totalVotes) : 0}">
 
                 <div class="result-header">
                     <span th:text="${option.optionText}">옵션명</span>
                     <span>
-                        <strong th:text="${count} + '표'">0표</strong>
-                        <span style="font-size: 0.9em; opacity: 0.7;" th:text="'(' + ${percent} + '%)'">(0%)</span>
-                    </span>
+                            <strong th:style="${stat.index < 30 ? 'color: ' + colorPalette[colorIndex] : ''}"
+                                    th:text="${count} + '표'">0표</strong>
+                            <span style="font-size: 0.9em; opacity: 0.7;" th:text="'(' + ${percent} + '%)'">(0%)</span>
+                        </span>
                 </div>
 
                 <div class="progress-track">
                     <div class="progress-fill"
-                         th:style="'width:' + ${percent} + '%'">
+                         th:style="|width: ${percent}%; background-color: ${colorPalette[colorIndex]}|">
                     </div>
                 </div>
 
             </th:block>
+            </div>
         </div>
     </div>
-</div>
-
-<div style="text-align: center; margin-top: 3rem; margin-bottom: 3rem;">
+</div> <div style="text-align: center; margin-top: 3rem; margin-bottom: 3rem;">
     <a href="/" class="home-button">🏠 홈으로 가기</a>
 </div>
 
@@ -123,7 +123,7 @@
 <th:block th:include="common/footer"></th:block>
 
 <script th:inline="javascript">
-    // ✅ [추가] 모달 제어 스크립트
+    // ✅ 모달 제어 스크립트 (별도 guide.js 파일로 분리하는 것을 추천합니다)
     function openGuideModal() {
         document.getElementById('guideModal').style.display = 'flex';
     }
@@ -174,18 +174,19 @@
         }
 
         // 결과화면
-
         const labels = [];
         const data = [];
 
         /*[# th:each="option : ${options}"]*/
         labels.push(/*[[${option.optionText}]]*/ "옵션");
-        // ✅ [에러 수정] 여기도 삼항 연산자로 안전하게 처리
         data.push(/*[[${results[option.optionNumber] != null ? results[option.optionNumber] : 0}]]*/ 0);
         /*[/]*/
 
         // 데이터가 아예 없으면 차트를 그리지 않음 (오류 방지)
         if (labels.length === 0) return;
+
+        // ✅ [수정] Controller에서 추가된 colorPalette 모델 속성 가져오기
+        const colorPalette = /*[[${colorPalette}]]*/ [];
 
         const ctx = document.getElementById('voteChart').getContext('2d');
 
@@ -195,10 +196,8 @@
                 labels: labels,
                 datasets: [{
                     data: data,
-                    backgroundColor: [
-                        '#4299e1', '#48bb78', '#f56565', '#ecc94b', '#9f7aea',
-                        '#ed64a6', '#38b2ac', '#ed8936', '#667eea', '#a0aec0'
-                    ],
+                    // ✅ colorPalette를 사용하여 색상 통일
+                    backgroundColor: colorPalette.slice(0, labels.length),
                     borderWidth: 2,
                     borderColor: '#ffffff',
                     hoverOffset: 4
