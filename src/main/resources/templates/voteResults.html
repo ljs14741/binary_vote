@@ -63,27 +63,27 @@
         <div class="result-list-section">
             <h3>📊 상세 결과 확인</h3>
 
-            <div th:each="option, stat : ${options}"
-                 class="result-item"
-                 th:with="colorIndex=${stat.index % 30}"> <th:block th:with="count=${results[option.optionNumber] != null ? results[option.optionNumber] : 0},
-                                   percent=${totalVotes > 0 ? (count * 100 / totalVotes) : 0}">
+            <div th:each="option, stat : ${options}" class="result-item" th:with="colorIndex=${stat.index % 30}">
+                <th:block th:with="count=${results[option.optionNumber] != null ? results[option.optionNumber] : 0},
+                           percent=${totalVotes > 0 ? (count * 100.0 / totalVotes) : 0}">
 
-                <div class="result-header">
-                    <span th:text="${option.optionText}">옵션명</span>
-                    <span>
-                            <strong th:style="${stat.index < 30 ? 'color: ' + colorPalette[colorIndex] : ''}"
-                                    th:text="${count} + '표'">0표</strong>
-                            <span style="font-size: 0.9em; opacity: 0.7;" th:text="'(' + ${percent} + '%)'">(0%)</span>
-                        </span>
-                </div>
-
-                <div class="progress-track">
-                    <div class="progress-fill"
-                         th:style="|width: ${percent}%; background-color: ${colorPalette[colorIndex]}|">
+                    <div class="result-header">
+                        <span th:text="${option.optionText}">옵션명</span>
+                        <span>
+                        <strong th:style="${stat.index < 30 ? 'color: ' + colorPalette[colorIndex] : ''}"
+                                th:text="${count} + '표'">0표</strong>
+                        <span style="font-size: 0.9em; opacity: 0.7;"
+                              th:text="'(' + ${#numbers.formatDecimal(percent, 1, 1)} + '%)'">(0.0%)</span>
+                    </span>
                     </div>
-                </div>
 
-            </th:block>
+                    <div class="progress-track">
+                        <div class="progress-fill"
+                             th:style="|width: ${percent}%; background-color: ${colorPalette[colorIndex]}|">
+                        </div>
+                    </div>
+
+                </th:block>
             </div>
         </div>
     </div>

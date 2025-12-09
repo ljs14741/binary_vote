@@ -228,10 +228,13 @@ public class VoteController {
         List<Options> options = voteService.getOptionsByVoteId(id);
         Map<Long, Long> results = voteService.getResultCountByVoteIdGrouped(id);
 
-        // ✅ [추가] 총 투표수 계산 (퍼센트 계산을 위해 필요)
-        long totalVotes = 0;
+        // 1. [문구용] 순수 참여자 수 (사람 명수)
+        Long totalParticipants = voteService.getUniqueUserCountByVoteId(id);
+
+        // 2. [계산용] 총 투표수 (찍힌 도장 개수)
+        long totalVotesCast = 0;
         for (Long count : results.values()) {
-            totalVotes += count;
+            totalVotesCast += count;
         }
 
         List<String> colorPalette = Arrays.asList(
@@ -248,7 +251,9 @@ public class VoteController {
         model.addAttribute("vote", vote);
         model.addAttribute("options", options);
         model.addAttribute("results", results);
-        model.addAttribute("totalVotes", totalVotes);
+        // ✅ 두 값을 따로따로 넘겨줍니다.
+        model.addAttribute("totalParticipants", totalParticipants); // "10명 참여" 표시용
+        model.addAttribute("totalVotes", totalVotesCast);           // "50%" 계산용
         return "voteResults";
     }
 
