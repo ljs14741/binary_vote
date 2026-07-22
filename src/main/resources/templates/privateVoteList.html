@@ -114,14 +114,18 @@
         </ul>
 
         <div class="pagination">
-            <button class="pagination-button"
-                    th:classappend="${currentPage == 0} ? ' disabled'"
-                    th:onclick="'goToPage(' + (${currentPage} - 1) + ')'">이전</button>
+            <a class="pagination-button"
+               th:classappend="${currentPage == 0} ? ' disabled'"
+               th:href="${currentPage > 0} ? @{/meet/privateVoteList(page=${currentPage - 1}, size=10)} : '#'"
+               th:attr="aria-disabled=${currentPage == 0}"
+               th:tabindex="${currentPage == 0} ? -1 : 0">이전</a>
             <span class="pagination-info"
                   th:text="${currentPage + 1} + ' / ' + ${totalPages}">1 / 1</span>
-            <button class="pagination-button"
-                    th:classappend="${currentPage + 1 >= totalPages} ? ' disabled'"
-                    th:onclick="'goToPage(' + (${currentPage} + 1) + ')'">다음</button>
+            <a class="pagination-button"
+               th:classappend="${currentPage + 1 >= totalPages} ? ' disabled'"
+               th:href="${currentPage + 1 < totalPages} ? @{/meet/privateVoteList(page=${currentPage + 1}, size=10)} : '#'"
+               th:attr="aria-disabled=${currentPage + 1 >= totalPages}"
+               th:tabindex="${currentPage + 1 >= totalPages} ? -1 : 0">다음</a>
         </div>
 
     </div>
@@ -397,16 +401,6 @@
     }
 
     setupKakaoShareButton();
-
-    function goToPage(page) {
-        if (page < 0) return;
-        const total = /*[[${totalPages}]]*/ 1;
-        if (page >= total) return;
-        const url = new URL(window.location.href);
-        url.searchParams.set('page', page);
-        if (!url.searchParams.get('size')) url.searchParams.set('size', '10');
-        window.location.href = url.toString();
-    }
 </script>
 <script src="https://binaryworld.kr/common/header.js" defer></script>
 <script src="https://binaryworld.kr/common/footer.js" defer></script>

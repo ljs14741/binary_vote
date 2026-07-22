@@ -47,13 +47,31 @@
         gtag('config', 'G-0TSFJBQ41N');
     </script>
 
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Binary World 무료 익명 투표",
+      "url": "https://vote.binaryworld.kr/",
+      "description": "무료 익명 투표를 간편하게 만들고 참여하세요. 공개·비공개 지원, 회원가입 없이 바로 시작.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "ko",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      }
+    }
+    </script>
+
 </head>
 <body class="bw-vote-body">
 <header id="global-header" aria-label="Binary World 공통 메뉴"></header>
 
 <div class="page-title">
     <p class="bw-vote-kicker">Binary World</p>
-    <h1>익명 투표
+    <h1>무료 익명 투표 사이트
         <button onclick="openGuideModal()" class="guide-btn" type="button">이용 가이드</button>
     </h1>
     <p>로그인 없이 만들고, 바로 참여하는 가벼운 투표</p>
@@ -93,7 +111,7 @@
                 <div class="vote-info">
                     <div class="vote-info-top">
                         <h3 th:text="${vote.title}">투표</h3>
-                        <span class="vote-badge" th:text="${voteResults[vote.id]} + '명'">0명</span>
+                        <span class="vote-badge" th:text="'참여 ' + ${voteResults[vote.id]} + '명'">참여 0명</span>
                     </div>
                     <p class="vote-meta" th:text="${vote.formattedCreatedDate}">생성시간</p>
                 </div>
@@ -121,16 +139,20 @@
         </ul>
 
         <div class="pagination">
-            <button class="pagination-button"
-                    th:classappend="${currentPage == 0} ? ' disabled'"
-                    th:onclick="'goToPage(' + (${currentPage} - 1) + ')'">이전</button>
+            <a class="pagination-button"
+               th:classappend="${currentPage == 0} ? ' disabled'"
+               th:href="${currentPage > 0} ? @{/(page=${currentPage - 1}, sort=${currentSort}, size=10)} : '#'"
+               th:attr="aria-disabled=${currentPage == 0}"
+               th:tabindex="${currentPage == 0} ? -1 : 0">이전</a>
 
             <span class="pagination-info"
                   th:text="${currentPage + 1} + ' / ' + ${totalPages}">1 / 1</span>
 
-            <button class="pagination-button"
-                    th:classappend="${currentPage + 1 == totalPages} ? ' disabled'"
-                    th:onclick="'goToPage(' + (${currentPage} + 1) + ')'">다음</button>
+            <a class="pagination-button"
+               th:classappend="${currentPage + 1 >= totalPages} ? ' disabled'"
+               th:href="${currentPage + 1 < totalPages} ? @{/(page=${currentPage + 1}, sort=${currentSort}, size=10)} : '#'"
+               th:attr="aria-disabled=${currentPage + 1 >= totalPages}"
+               th:tabindex="${currentPage + 1 >= totalPages} ? -1 : 0">다음</a>
         </div>
 
     </div>
@@ -338,17 +360,6 @@
         });
     }
     setupKakaoShareButton();
-
-    function goToPage(page) {
-        const button = event.target;
-        if (button.classList.contains('disabled')) return;
-
-        const params = new URLSearchParams(window.location.search);
-        const size = params.get("size") || 10;
-        const sort = params.get("sort") || 'latest';
-
-        window.location.href = `/?page=${page}&size=${size}&sort=${sort}`;
-    }
 
 </script>
 <script src="https://binaryworld.kr/common/header.js" defer></script>
