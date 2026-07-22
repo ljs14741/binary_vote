@@ -27,6 +27,7 @@
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://binaryworld.kr/common/header.css">
     <link id="theme-style" rel="stylesheet" th:href="@{/css/main-light.css}">
 
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -44,7 +45,7 @@
 
 </head>
 <body>
-<th:block th:include="common/header"></th:block>
+<header id="global-header" aria-label="Binary World 공통 메뉴"></header>
 
 <div class="page-title">
     <h1>무료 익명 투표 사이트
@@ -462,5 +463,6 @@
 
     loadGuestbookPage();
 </script>
+<script src="https://binaryworld.kr/common/header.js" defer></script>
 </body>
 </html>
