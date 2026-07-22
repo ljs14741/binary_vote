@@ -5,34 +5,36 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap");
 
-/* ===== Design tokens ===== */
+/* ===== Design tokens — Ink & Rose (vote-only, independent from GNB) ===== */
 body,
 .bw-vote-body {
   --bw-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --bw-font-display: "Syne", "Avenir Next", "Segoe UI", sans-serif;
   --bw-font-body: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
-  --bw-bg: #f3f1eb;
-  --bw-bg-deep: #e8e4da;
-  --bw-surface: rgba(255, 255, 255, 0.62);
-  --bw-surface-strong: rgba(255, 255, 255, 0.88);
-  --bw-border: rgba(18, 18, 16, 0.1);
-  --bw-border-subtle: rgba(18, 18, 16, 0.06);
-  --bw-text: #151513;
-  --bw-muted: #6b6962;
-  --bw-accent: #0f766e;
-  --bw-accent-hover: #0d9488;
-  --bw-accent-soft: rgba(15, 118, 110, 0.1);
+  --bw-bg: #f7f7f5;
+  --bw-bg-deep: #ecece8;
+  --bw-surface: rgba(255, 255, 255, 0.78);
+  --bw-surface-strong: #ffffff;
+  --bw-border: rgba(10, 10, 10, 0.1);
+  --bw-border-subtle: rgba(10, 10, 10, 0.06);
+  --bw-text: #0a0a0a;
+  --bw-muted: #6b6b6b;
+  --bw-accent: #0a0a0a;
+  --bw-accent-hover: #2a2a2a;
+  --bw-accent-soft: rgba(10, 10, 10, 0.06);
   --bw-accent-text: #ffffff;
+  --bw-pop: #e11d48;
+  --bw-pop-soft: rgba(225, 29, 72, 0.1);
   --bw-danger: #dc2626;
   --bw-danger-soft: rgba(220, 38, 38, 0.08);
-  --bw-hover: rgba(18, 18, 16, 0.04);
-  --bw-shadow: 0 8px 32px rgba(18, 18, 16, 0.06);
-  --bw-shadow-lift: 0 14px 40px rgba(18, 18, 16, 0.1);
-  --bw-signal: linear-gradient(90deg, #0f766e 0%, #14b8a6 48%, #f59e0b 100%);
+  --bw-hover: rgba(10, 10, 10, 0.04);
+  --bw-shadow: 0 10px 36px rgba(10, 10, 10, 0.06);
+  --bw-shadow-lift: 0 18px 44px rgba(10, 10, 10, 0.1);
+  --bw-signal: linear-gradient(90deg, #0a0a0a 0%, #e11d48 55%, #f59e0b 100%);
   --bw-amber: #f59e0b;
   --bw-radius-sm: 0.5rem;
   --bw-radius-md: 0.75rem;
-  --bw-radius-lg: 1rem;
+  --bw-radius-lg: 1.05rem;
   --bw-radius-pill: 999px;
 }
 
@@ -50,9 +52,8 @@ body,
   font-weight: 500;
   line-height: 1.65;
   background:
-    radial-gradient(1200px 560px at 8% -12%, rgba(15, 118, 110, 0.14), transparent 58%),
-    radial-gradient(900px 480px at 92% 4%, rgba(245, 158, 11, 0.11), transparent 52%),
-    radial-gradient(700px 400px at 50% 100%, rgba(15, 118, 110, 0.05), transparent 60%),
+    radial-gradient(1000px 520px at 12% -14%, rgba(225, 29, 72, 0.08), transparent 55%),
+    radial-gradient(820px 420px at 90% 0%, rgba(245, 158, 11, 0.08), transparent 50%),
     var(--bw-bg);
   -webkit-font-smoothing: antialiased;
 }
@@ -119,7 +120,7 @@ h2 {
 
 .bw-vote-kicker {
   margin: 0 0 0.35rem;
-  color: var(--bw-accent);
+  color: var(--bw-pop);
   font-family: var(--bw-font-display);
   font-size: clamp(2rem, 5.5vw, 3.2rem);
   font-weight: 800;
@@ -217,7 +218,7 @@ h2 {
 }
 
 .guide-btn:hover {
-  border-color: rgba(15, 118, 110, 0.35);
+  border-color: rgba(10, 10, 10, 0.22);
   background: var(--bw-accent-soft);
   color: var(--bw-accent);
 }
@@ -250,7 +251,7 @@ h2 {
 
 .link-icon:hover {
   transform: translateY(-1px);
-  border-color: rgba(15, 118, 110, 0.25);
+  border-color: rgba(10, 10, 10, 0.16);
   opacity: 0.9;
 }
 
@@ -308,7 +309,7 @@ h2 {
 .tab-button.active {
   background: var(--bw-accent);
   color: var(--bw-accent-text);
-  box-shadow: 0 2px 8px rgba(15, 118, 110, 0.22);
+  box-shadow: 0 2px 8px rgba(10, 10, 10, 0.14);
 }
 
 .create-vote-form {
@@ -326,7 +327,7 @@ h2 {
   font-weight: 800;
   letter-spacing: -0.02em;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(15, 118, 110, 0.24);
+  box-shadow: 0 8px 24px rgba(10, 10, 10, 0.24);
   transition:
     transform 0.22s var(--bw-ease),
     background-color 0.22s var(--bw-ease),
@@ -336,7 +337,7 @@ h2 {
 .create-vote-button:hover {
   transform: translateY(-1px);
   background: var(--bw-accent-hover);
-  box-shadow: 0 12px 28px rgba(15, 118, 110, 0.3);
+  box-shadow: 0 12px 28px rgba(10, 10, 10, 0.3);
 }
 
 .tab {
@@ -387,8 +388,8 @@ h2 {
 }
 
 .sort-options a.active {
-  background: var(--bw-accent-soft);
-  color: var(--bw-accent);
+  background: var(--bw-pop-soft);
+  color: var(--bw-pop);
   font-weight: 800;
 }
 
@@ -427,7 +428,7 @@ h2 {
 
 .vote-item:hover {
   transform: translateY(-2px);
-  border-color: rgba(15, 118, 110, 0.28);
+  border-color: rgba(10, 10, 10, 0.18);
   box-shadow: var(--bw-shadow-lift);
 }
 
@@ -457,10 +458,10 @@ h2 {
 
 .vote-badge {
   flex-shrink: 0;
-  padding: 0.2rem 0.55rem;
+  padding: 0.28rem 0.65rem;
   border-radius: var(--bw-radius-pill);
-  background: var(--bw-accent-soft);
-  color: var(--bw-accent);
+  background: var(--bw-pop-soft);
+  color: var(--bw-pop);
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: -0.01em;
@@ -557,7 +558,7 @@ h2 {
 }
 
 .result-button:hover {
-  border-color: rgba(15, 118, 110, 0.3);
+  border-color: rgba(10, 10, 10, 0.3);
   background: var(--bw-accent-soft);
   color: var(--bw-accent);
 }
@@ -604,7 +605,7 @@ h2 {
 }
 
 .home-button:hover {
-  border-color: rgba(15, 118, 110, 0.3);
+  border-color: rgba(10, 10, 10, 0.3);
   background: var(--bw-accent-soft);
   color: var(--bw-accent);
 }
@@ -636,7 +637,7 @@ h2 {
 }
 
 .pagination-button:hover:not(.disabled) {
-  border-color: rgba(15, 118, 110, 0.28);
+  border-color: rgba(10, 10, 10, 0.18);
   background: var(--bw-accent-soft);
   color: var(--bw-accent);
 }
@@ -721,7 +722,7 @@ h2 {
 .vote-form input:focus,
 .vote-form textarea:focus {
   outline: none;
-  border-color: rgba(15, 118, 110, 0.45);
+  border-color: rgba(10, 10, 10, 0.45);
   box-shadow: 0 0 0 3px var(--bw-accent-soft);
 }
 
@@ -749,7 +750,7 @@ h2 {
 }
 
 .vote-form button:hover {
-  border-color: rgba(15, 118, 110, 0.28);
+  border-color: rgba(10, 10, 10, 0.18);
   background: var(--bw-accent-soft);
   color: var(--bw-accent);
 }
@@ -759,7 +760,7 @@ h2 {
   border: none;
   background: var(--bw-accent);
   color: var(--bw-accent-text);
-  box-shadow: 0 6px 20px rgba(15, 118, 110, 0.2);
+  box-shadow: 0 6px 20px rgba(10, 10, 10, 0.2);
 }
 
 .vote-form button[type="submit"]:hover,
@@ -850,13 +851,14 @@ h2 {
 }
 
 .vote-options-li:hover {
-  border-color: rgba(15, 118, 110, 0.25);
+  border-color: rgba(10, 10, 10, 0.16);
   background: var(--bw-accent-soft);
 }
 
 .vote-options-li:has(input:checked) {
-  border-color: rgba(15, 118, 110, 0.45);
-  background: var(--bw-accent-soft);
+  border-color: var(--bw-pop);
+  background: var(--bw-pop-soft);
+  box-shadow: 0 0 0 1px var(--bw-pop);
 }
 
 .vote-options-li label {
@@ -870,7 +872,7 @@ h2 {
 
 .vote-options-li input[type="checkbox"],
 .vote-options-li input[type="radio"] {
-  accent-color: var(--bw-accent);
+  accent-color: var(--bw-pop);
   width: 1.05rem;
   height: 1.05rem;
   flex-shrink: 0;
@@ -916,7 +918,7 @@ h2 {
 }
 
 .vote-count-info strong {
-  color: var(--bw-accent);
+  color: var(--bw-pop);
   font-size: 1.12em;
   font-weight: 800;
 }
