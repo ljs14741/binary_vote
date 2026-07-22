@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>비공개 익명 투표 사이트</title>
     <meta charset="UTF-8">
@@ -9,9 +9,12 @@
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
     <!-- Stylesheet -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://binaryworld.kr/common/header.css">
     <link rel="stylesheet" href="https://binaryworld.kr/common/footer.css">
+    <link rel="stylesheet" href="https://binaryworld.kr/common/guestbook.css">
     <link id="theme-style" rel="stylesheet" th:href="@{/css/main-light.css}">
 
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -49,19 +52,15 @@
         gtag('config', 'G-0TSFJBQ41N');
     </script>
 </head>
-<body>
+<body class="bw-vote-body">
 
 <header id="global-header" aria-label="Binary World 공통 메뉴"></header>
 
 <div class="page-title">
-    <h1>무료 익명 투표 사이트
-        <button onclick="openGuideModal()" class="guide-btn" type="button">📖 이용 가이드</button>
+    <h1>Binary World 익명 투표
+        <button onclick="openGuideModal()" class="guide-btn" type="button">이용 가이드</button>
     </h1>
-    <p>누구나 쉽게 참여하는 설문 플랫폼</p>
-</div>
-
-<div class="intro">
-    <h2 class="main-title">무료 익명 투표 사이트 | 비공개 투표</h2>
+    <p>비밀번호로 보호되는 모임 투표 공간</p>
 </div>
 <div class="icon-container">
     <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();"></a>
@@ -82,7 +81,9 @@
 
     <div id="private-votes" class="tab active">
 
-        <h3>비공개 투표 모임 목록</h3>
+        <div class="list-header">
+            <h2>비공개 모임 목록</h2>
+        </div>
         <ul class="vote-options">
             <li th:each="meet : ${meets}" class="vote-item">
                 <div class="vote-info">
@@ -106,25 +107,39 @@
             <li class="vote-item empty"></li>
             <li class="vote-item empty"></li>
         </ul>
+
+        <div class="pagination">
+            <button class="pagination-button"
+                    th:classappend="${currentPage == 0} ? ' disabled'"
+                    th:onclick="'goToPage(' + (${currentPage} - 1) + ')'">이전</button>
+            <span class="pagination-info"
+                  th:text="${currentPage + 1} + ' / ' + ${totalPages}">1 / 1</span>
+            <button class="pagination-button"
+                    th:classappend="${currentPage + 1 >= totalPages} ? ' disabled'"
+                    th:onclick="'goToPage(' + (${currentPage} + 1) + ')'">다음</button>
+        </div>
+
     </div>
 </div>
+
+<div id="bw-guestbook" aria-label="방명록"></div>
 
 <div id="guideModal" class="modal-overlay" style="display: none;">
     <div class="modal-content">
         <span class="close-modal" onclick="closeGuideModal()">&times;</span>
-        <h2 style="text-align:center; color:#333; margin-bottom:1.5rem;">📌 투표 이용 가이드</h2>
+        <h2>투표 이용 가이드</h2>
 
         <div class="guide-section">
-            <h3>📢 공개 투표</h3>
+            <h3>공개 투표</h3>
             <ul>
                 <li><strong>로그인 없이 3초 만에!</strong> 누구나 자유롭게 투표를 만들고 참여하세요.</li>
                 <li>탕수육 부먹vs찍먹, 밸런스 게임 등 <strong>재미있는 주제</strong>로 소통해요.</li>
-                <li><strong>🔥 인기순 정렬</strong>을 누르면 지금 가장 핫한 투표를 볼 수 있어요!</li>
+                <li><strong>인기순 정렬</strong>을 누르면 지금 가장 핫한 투표를 볼 수 있어요!</li>
             </ul>
         </div>
 
         <div class="guide-section">
-            <h3>🔒 비공개 투표 (모임)</h3>
+            <h3>비공개 투표 (모임)</h3>
             <ul>
                 <li><strong>모임 생성 필수!</strong> 먼저 모임(방)을 만들고, 그 안에서 투표를 생성하세요.</li>
                 <li><strong>비밀번호</strong>를 아는 멤버들끼리만 들어올 수 있는 비밀 공간입니다.</li>
@@ -377,8 +392,19 @@
     }
 
     setupKakaoShareButton();
+
+    function goToPage(page) {
+        if (page < 0) return;
+        const total = /*[[${totalPages}]]*/ 1;
+        if (page >= total) return;
+        const url = new URL(window.location.href);
+        url.searchParams.set('page', page);
+        if (!url.searchParams.get('size')) url.searchParams.set('size', '10');
+        window.location.href = url.toString();
+    }
 </script>
 <script src="https://binaryworld.kr/common/header.js" defer></script>
 <script src="https://binaryworld.kr/common/footer.js" defer></script>
+<script src="https://binaryworld.kr/common/guestbook.js" defer></script>
 </body>
 </html>

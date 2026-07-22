@@ -1,6 +1,8 @@
 package com.example.vote.repository;
 
 import com.example.vote.entity.Meet;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +14,6 @@ public interface MeetRepository extends JpaRepository<Meet, Long> {
     List<Meet> findByEndDateTimeBefore(LocalDateTime endDateTime);
 
     List<Meet> findAllByOrderByCreatedDateDesc();
+
+    Page<Meet> findAllByOrderByCreatedDateDesc(Pageable pageable);
 }

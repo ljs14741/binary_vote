@@ -9,7 +9,9 @@ import com.example.vote.repository.OptionRepository;
 import com.example.vote.repository.VoteRepository;
 import com.example.vote.repository.VoteResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,34 +49,33 @@ public class MeetService {
         return meetDTO;
     }
 
+    private MeetDTO toDto(Meet meet) {
+        MeetDTO meetDTO = new MeetDTO();
+        meetDTO.setId(meet.getId());
+        meetDTO.setMeetName(meet.getMeetName());
+        meetDTO.setCreatedPassword(meet.getCreatedPassword());
+        meetDTO.setMeetPassword(meet.getMeetPassword());
+        meetDTO.setEndDateTime(meet.getEndDateTime());
+        meetDTO.setCreatedDate(meet.getCreatedDate());
+        meetDTO.setUpdatedDate(meet.getUpdatedDate());
+        return meetDTO;
+    }
+
     public List<MeetDTO> getAllMeets() {
-        return meetRepository.findAllByOrderByCreatedDateDesc().stream().map(meet -> {
-            MeetDTO meetDTO = new MeetDTO();
-            meetDTO.setId(meet.getId());
-            meetDTO.setMeetName(meet.getMeetName());
-            meetDTO.setCreatedPassword(meet.getCreatedPassword());
-            meetDTO.setMeetPassword(meet.getMeetPassword());
-            meetDTO.setEndDateTime(meet.getEndDateTime());
-            meetDTO.setCreatedDate(meet.getCreatedDate());
-            meetDTO.setUpdatedDate(meet.getUpdatedDate());
-            return meetDTO;
-        }).collect(Collectors.toList());
+        return meetRepository.findAllByOrderByCreatedDateDesc().stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
+    }
+
+    public Page<MeetDTO> getPagedMeets(int page, int size) {
+        int safePage = Math.max(page, 0);
+        int safeSize = size <= 0 ? 10 : size;
+        Pageable pageable = PageRequest.of(safePage, safeSize);
+        return meetRepository.findAllByOrderByCreatedDateDesc(pageable).map(this::toDto);
     }
 
     public Optional<MeetDTO> getMeetById(Long id) {
-        return meetRepository.findById(id).map(meet -> {
-            MeetDTO meetDTO = new MeetDTO();
-            meetDTO.setId(meet.getId());
-            meetDTO.setMeetName(meet.getMeetName());
-            meetDTO.setCreatedPassword(meet.getCreatedPassword());
-            meetDTO.setMeetPassword(meet.getMeetPassword());
-            meetDTO.setEndDateTime(meet.getEndDateTime());
-            meetDTO.setCreatedDate(meet.getCreatedDate());
-            meetDTO.setUpdatedDate(meet.getUpdatedDate());
-
-            System.out.println("Retrieved Meet: " + meet.getMeetName() + ", Created Password: " + meet.getCreatedPassword() + ", Meet Password: " + meet.getMeetPassword());
-            return meetDTO;
-        });
+        return meetRepository.findById(id).map(this::toDto);
     }
 
     public void updateMeet(Long id, MeetDTO meetDTO) {
@@ -89,25 +90,19 @@ public class MeetService {
 
     @Transactional
     public void deleteMeet(Long id) {
-
-        // 1. 해당 모임과 관련된 모든 투표 가져오기
         List<Vote> votes = voteRepository.findByMeetId(id);
 
         for (Vote vote : votes) {
-            // 2. 각 투표의 투표 결과 삭제
             voteResultRepository.deleteByVoteId(vote.getId());
 
-            // 3. 각 투표와 관련된 모든 옵션 삭제
             List<Options> options = optionRepository.findByVoteId(vote.getId());
             for (Options option : options) {
                 optionRepository.delete(option);
             }
 
-            // 4. 투표 삭제
             voteRepository.delete(vote);
         }
 
-        // 5. 마지막으로 모임 삭제
         meetRepository.deleteById(id);
     }
 

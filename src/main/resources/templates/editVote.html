@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>투표 수정 | 익명 투표 관리</title>
     <meta charset="UTF-8">
@@ -26,7 +26,9 @@
     <meta name="theme-color" content="#ffffff">
 
     <!-- Stylesheet -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://binaryworld.kr/common/header.css">
     <link rel="stylesheet" href="https://binaryworld.kr/common/footer.css">
     <link id="theme-style" rel="stylesheet" th:href="@{/css/main-light.css}">
@@ -44,15 +46,15 @@
         gtag('config', 'G-0TSFJBQ41N');
     </script>
 </head>
-<body>
+<body class="bw-vote-body">
 
 <header id="global-header" aria-label="Binary World 공통 메뉴"></header>
 
 <div class="page-title">
-    <h1>무료 익명 투표 사이트
-        <button onclick="openGuideModal()" class="guide-btn" type="button">📖 이용 가이드</button>
+    <h1>Binary World 익명 투표
+        <button onclick="openGuideModal()" class="guide-btn" type="button">이용 가이드</button>
     </h1>
-    <p>누구나 쉽게 참여하는 설문 플랫폼</p>
+    <p>투표 내용을 수정하세요</p>
 </div>
 
     <div class="intro">
@@ -60,7 +62,7 @@
     </div>
 
     <div style="text-align: center; margin-top: 2rem;">
-        <a href="/" class="home-button">🏠 홈으로 가기</a>
+        <a href="/" class="home-button">← 목록으로</a>
     </div>
 
     <div class="vote-container">
@@ -104,19 +106,19 @@
 <div id="guideModal" class="modal-overlay" style="display: none;">
     <div class="modal-content">
         <span class="close-modal" onclick="closeGuideModal()">&times;</span>
-        <h2 style="text-align:center; color:#333; margin-bottom:1.5rem;">📌 투표 이용 가이드</h2>
+        <h2>투표 이용 가이드</h2>
 
         <div class="guide-section">
-            <h3>📢 공개 투표</h3>
+            <h3>공개 투표</h3>
             <ul>
                 <li><strong>로그인 없이 3초 만에!</strong> 누구나 자유롭게 투표를 만들고 참여하세요.</li>
                 <li>탕수육 부먹vs찍먹, 밸런스 게임 등 <strong>재미있는 주제</strong>로 소통해요.</li>
-                <li><strong>🔥 인기순 정렬</strong>을 누르면 지금 가장 핫한 투표를 볼 수 있어요!</li>
+                <li><strong>인기순 정렬</strong>을 누르면 지금 가장 핫한 투표를 볼 수 있어요!</li>
             </ul>
         </div>
 
         <div class="guide-section">
-            <h3>🔒 비공개 투표 (모임)</h3>
+            <h3>비공개 투표 (모임)</h3>
             <ul>
                 <li><strong>모임 생성 필수!</strong> 먼저 모임(방)을 만들고, 그 안에서 투표를 생성하세요.</li>
                 <li><strong>비밀번호</strong>를 아는 멤버들끼리만 들어올 수 있는 비밀 공간입니다.</li>

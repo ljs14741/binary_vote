@@ -55,10 +55,15 @@ public class MeetController {
     }
 
     @GetMapping("/privateVoteList")
-    public String getAllPrivateMeets(Model model) {
+    public String getAllPrivateMeets(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
 
-        List<MeetDTO> meets = meetService.getAllMeets();
-        model.addAttribute("meets", meets);
+        var meetsPage = meetService.getPagedMeets(page, size);
+        model.addAttribute("meets", meetsPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", Math.max(meetsPage.getTotalPages(), 1));
         return "privateVoteList";
     }
 
