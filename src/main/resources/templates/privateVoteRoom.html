@@ -54,54 +54,57 @@
 <header id="global-header" aria-label="Binary World 공통 메뉴"></header>
 
 <div class="page-title">
-  <h1>Binary World 익명 투표
+  <p class="bw-vote-kicker">Binary World</p>
+  <h1>익명 투표
         <button onclick="openGuideModal()" class="guide-btn" type="button">이용 가이드</button>
     </h1>
-  <p>모임 안에서 투표를 만들고 참여하세요</p>
+  <p class="main-title" th:text="${meet.meetName}">모임명</p>
 </div>
 
-<div class="intro">
-  <h2 class="main-title" th:text="${meet.meetName} + ' - 비공개 투표방'"></h2>
-</div>
-
-<div style="text-align: center; margin-top: 2rem;">
-  <a href="/meet/privateVoteList" class="home-button">← 목록으로</a>
+<div class="bw-vote-toolbar">
+  <a href="/meet/privateVoteList" class="home-button">← 모임 목록</a>
+  <form id="create-vote-form" th:action="@{/vote/create}" method="get" class="create-vote-form">
+    <input type="hidden" name="voteType" value="PRIVATE">
+    <input type="hidden" name="meetId" th:value="${meet.id}">
+    <button type="submit" class="create-vote-button">투표 만들기</button>
+  </form>
 </div>
 
 <div class="vote-list-container">
   <div id="public-votes" class="tab active">
-    <form id="create-vote-form" th:action="@{/vote/create}" method="get">
-      <input type="hidden" name="voteType" value="PRIVATE">
-      <input type="hidden" name="meetId" th:value="${meet.id}">
-      <button type="submit" class="create-vote-button" style="margin-bottom: 20px;">투표 만들기!</button>
-    </form>
-
+    <div class="list-header">
+      <h2>이 모임의 투표</h2>
+    </div>
     <ul class="vote-options">
       <li th:each="vote : ${votes}" class="vote-item">
         <div class="vote-info">
-          <h3 th:text="${vote.title}">투표</h3>
-          <p th:text="'생성시간: ' + ${vote.formattedCreatedDate}">생성시간</p>
-          <p th:text="${voteResults[vote.id]} + '명이 투표에 참여했어요'">몇명참여</p>
+          <div class="vote-info-top">
+            <h3 th:text="${vote.title}">투표</h3>
+            <span class="vote-badge" th:text="${voteResults[vote.id]} + '명'">0명</span>
+          </div>
+          <p class="vote-meta" th:text="${vote.formattedCreatedDate}">생성시간</p>
         </div>
         <div class="vote-actions">
-          <form th:action="@{/vote/{id}(id=${vote.id})}" method="get">
-            <button type="submit" class="vote-button">투표 하러가기</button>
-          </form>
-          <form th:action="@{/vote/results/{id}(id=${vote.id})}" method="get">
-            <button type="submit" class="result-button">투표 결과보기</button>
-          </form>
-          <form th:attr="onsubmit='return checkPasswordAndSubmit(this, \'/vote/edit/' + ${vote.id} + '\', \'GET\');'">
-            <input type="hidden" name="voteId" th:value="${vote.id}">
-            <button type="submit" class="vote-button">투표 수정하기</button>
-          </form>
-          <form th:attr="onsubmit='return checkPasswordAndSubmit(this, \'/vote/delete/' + ${vote.id} + '\');'" method="post">
-            <input type="hidden" name="voteId" th:value="${vote.id}">
-            <button type="submit" class="vote-button">투표 삭제하기</button>
-          </form>
+          <div class="vote-actions-primary">
+            <form th:action="@{/vote/{id}(id=${vote.id})}" method="get">
+              <button type="submit" class="vote-button">투표하기</button>
+            </form>
+            <form th:action="@{/vote/results/{id}(id=${vote.id})}" method="get">
+              <button type="submit" class="result-button">결과</button>
+            </form>
+          </div>
+          <div class="vote-actions-meta">
+            <form th:attr="onsubmit='return checkPasswordAndSubmit(this, \'/vote/edit/' + ${vote.id} + '\', \'GET\');'">
+              <input type="hidden" name="voteId" th:value="${vote.id}">
+              <button type="submit" class="vote-link-btn">수정</button>
+            </form>
+            <form th:attr="onsubmit='return checkPasswordAndSubmit(this, \'/vote/delete/' + ${vote.id} + '\');'" method="post">
+              <input type="hidden" name="voteId" th:value="${vote.id}">
+              <button type="submit" class="vote-link-btn vote-link-danger">삭제</button>
+            </form>
+          </div>
         </div>
       </li>
-      <li class="vote-item empty"></li>
-      <li class="vote-item empty"></li>
     </ul>
   </div>
 </div>

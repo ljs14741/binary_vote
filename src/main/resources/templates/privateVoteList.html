@@ -57,55 +57,60 @@
 <header id="global-header" aria-label="Binary World 공통 메뉴"></header>
 
 <div class="page-title">
-    <h1>Binary World 익명 투표
+    <p class="bw-vote-kicker">Binary World</p>
+    <h1>익명 투표
         <button onclick="openGuideModal()" class="guide-btn" type="button">이용 가이드</button>
     </h1>
     <p>비밀번호로 보호되는 모임 투표 공간</p>
 </div>
 <div class="icon-container">
-    <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();"></a>
-    <a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();"></a>
-    <a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();"></a>
+    <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();" aria-label="트위터 공유"></a>
+    <a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();" aria-label="페이스북 공유"></a>
+    <a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();" aria-label="카카오 공유"></a>
 </div>
 
 <div class="vote-list-container">
     <div class="tab-buttons-wrapper">
-        <div class="tab-buttons">
-            <button class="tab-button" onclick="openTab(event, 'public-votes')">공개투표</button>
-            <button class="tab-button active" onclick="openTab(event, 'private-votes')">비공개투표</button>
+        <div class="tab-buttons" role="tablist">
+            <button class="tab-button" type="button" onclick="openTab(event, 'public-votes')">공개투표</button>
+            <button class="tab-button active" type="button" onclick="openTab(event, 'private-votes')">비공개투표</button>
         </div>
         <div id="create-vote-form" class="create-vote-form">
-            <button class="create-vote-button" onclick="window.location.href='/meet/new'">모임 만들기</button>
+            <button class="create-vote-button" type="button" onclick="window.location.href='/meet/new'">모임 만들기</button>
         </div>
     </div>
 
     <div id="private-votes" class="tab active">
 
         <div class="list-header">
-            <h2>비공개 모임 목록</h2>
+            <h2>비공개 모임</h2>
         </div>
         <ul class="vote-options">
             <li th:each="meet : ${meets}" class="vote-item">
                 <div class="vote-info">
-                    <h3 th:text="${meet.meetName}">모임명</h3>
+                    <div class="vote-info-top">
+                        <h3 th:text="${meet.meetName}">모임명</h3>
+                    </div>
                 </div>
                 <div class="vote-actions">
-                    <form th:attr="onsubmit='return checkPasswordAndSubmit(this, \'/meet/join\');'">
-                        <input type="hidden" name="meetId" th:value="${meet.id}">
-                        <button type="submit" class="vote-button">모임 참여</button>
-                    </form>
-                    <form th:attr="onsubmit='return checkPasswordAndSubmit(this, \'/meet/edit/' + ${meet.id} + '\', \'GET\');'">
-                        <input type="hidden" name="meetId" th:value="${meet.id}">
-                        <button type="submit" class="vote-button">모임 수정</button>
-                    </form>
-                    <form th:attr="onsubmit='return checkPasswordAndSubmit(this, \'/meet/delete/' + ${meet.id} + '\');'" method="post">
-                        <input type="hidden" name="meetId" th:value="${meet.id}">
-                        <button type="submit" class="vote-button">모임 삭제</button>
-                    </form>
+                    <div class="vote-actions-primary">
+                        <form th:attr="onsubmit='return checkPasswordAndSubmit(this, \'/meet/join\');'">
+                            <input type="hidden" name="meetId" th:value="${meet.id}">
+                            <button type="submit" class="vote-button">참여하기</button>
+                        </form>
+                    </div>
+                    <div class="vote-actions-meta">
+                        <form th:attr="onsubmit='return checkPasswordAndSubmit(this, \'/meet/edit/' + ${meet.id} + '\', \'GET\');'">
+                            <input type="hidden" name="meetId" th:value="${meet.id}">
+                            <button type="submit" class="vote-link-btn">수정</button>
+                        </form>
+                        <form th:attr="onsubmit='return checkPasswordAndSubmit(this, \'/meet/delete/' + ${meet.id} + '\');'" method="post">
+                            <input type="hidden" name="meetId" th:value="${meet.id}">
+                            <button type="submit" class="vote-link-btn vote-link-danger">삭제</button>
+                        </form>
+                    </div>
                 </div>
             </li>
-            <li class="vote-item empty"></li>
-            <li class="vote-item empty"></li>
         </ul>
 
         <div class="pagination">

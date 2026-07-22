@@ -53,44 +53,43 @@
 <header id="global-header" aria-label="Binary World 공통 메뉴"></header>
 
 <div class="page-title">
-    <h1>Binary World 익명 투표
+    <p class="bw-vote-kicker">Binary World</p>
+    <h1>익명 투표
         <button onclick="openGuideModal()" class="guide-btn" type="button">이용 가이드</button>
     </h1>
-    <p>원하는 항목을 선택하고 투표하세요</p>
+    <p class="main-title" th:text="${vote.title}">투표 제목</p>
 </div>
 
-    <div class="intro">
-        <h2 class="main-title" th:text="${vote.title}">익명 투표하기</h2>
-    </div>
+<div class="bw-vote-toolbar">
+    <a href="/" class="home-button">← 목록으로</a>
+</div>
 
-    <div style="text-align: center; margin-top: 2rem;">
-        <a href="/" class="home-button">← 목록으로</a>
-    </div>
+<div class="vote-container">
+    <p class="bw-vote-rule" th:if="${vote.allowMultipleVotes}">
+        중복 선택 가능
+        <span th:if="${vote.maxOptions != null}" th:text="' · 최대 ' + ${vote.maxOptions} + '개'"> · 최대 N개</span>
+    </p>
+    <p class="bw-vote-rule" th:unless="${vote.allowMultipleVotes}">하나만 선택할 수 있습니다</p>
 
-    <div class="vote-container">
-        <p th:if="${vote.allowMultipleVotes}" style="color: green;">중복투표: O</p>
-            <span th:if="${vote.maxOptions != null}"> (최대 선택 옵션 개수: [[${vote.maxOptions}]])</span>
-        <p th:unless="${vote.allowMultipleVotes}" style="color: red;">중복투표: X</p>
-
-        <form th:action="@{/vote/{id}(id=${vote.id})}" method="post" class="vote-form" onsubmit="this.querySelector('button[type=submit]').disabled = true; return validateVoteForm()">
-            <ul class="vote-options">
-                <li th:each="option : ${options}" class="vote-options-li">
-                    <input type="checkbox" th:id="${option.id}" th:name="optionNumbers" th:value="${option.optionNumber}" th:if="${vote.allowMultipleVotes}" onchange="checkMaxOptions()">
-                    <input type="radio" th:id="${option.id}" th:name="optionNumbers" th:value="${option.optionNumber}" th:unless="${vote.allowMultipleVotes}">
-                    <label th:for="${option.id}" th:text="${option.optionText}">Option</label>
-                </li>
-            </ul>
-            <div>
-                <button type="submit" class="vote-button">투표하기</button>
-            </div>
-        </form>
-        <div th:if="${error}" class="error-message" th:text="${error}"></div>
-        <div th:if="${error}">
-            <script>
-                alert([[${error}]]);
-            </script>
+    <form th:action="@{/vote/{id}(id=${vote.id})}" method="post" class="vote-form" onsubmit="this.querySelector('button[type=submit]').disabled = true; return validateVoteForm()">
+        <ul class="vote-options">
+            <li th:each="option : ${options}" class="vote-options-li">
+                <input type="checkbox" th:id="${option.id}" th:name="optionNumbers" th:value="${option.optionNumber}" th:if="${vote.allowMultipleVotes}" onchange="checkMaxOptions()">
+                <input type="radio" th:id="${option.id}" th:name="optionNumbers" th:value="${option.optionNumber}" th:unless="${vote.allowMultipleVotes}">
+                <label th:for="${option.id}" th:text="${option.optionText}">Option</label>
+            </li>
+        </ul>
+        <div class="form-actions">
+            <button type="submit" class="vote-button">투표하기</button>
         </div>
+    </form>
+    <div th:if="${error}" class="error-message" th:text="${error}"></div>
+    <div th:if="${error}">
+        <script>
+            alert([[${error}]]);
+        </script>
     </div>
+</div>
 
 <div id="guideModal" class="modal-overlay" style="display: none;">
     <div class="modal-content">

@@ -52,38 +52,38 @@
 <header id="global-header" aria-label="Binary World 공통 메뉴"></header>
 
 <div class="page-title">
-    <h1>Binary World 익명 투표
+    <p class="bw-vote-kicker">Binary World</p>
+    <h1>익명 투표
         <button onclick="openGuideModal()" class="guide-btn" type="button">이용 가이드</button>
     </h1>
-    <p>무료 익명 투표 설문, 누구나 쉽게 만들고 참여하세요. 회원가입 없이 바로 시작!</p>
+    <p>로그인 없이 만들고, 바로 참여하는 가벼운 투표</p>
 </div>
 
 <div class="icon-container">
-    <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();"></a>
-    <a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();"></a>
-    <a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();"></a>
+    <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();" aria-label="트위터 공유"></a>
+    <a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();" aria-label="페이스북 공유"></a>
+    <a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();" aria-label="카카오 공유"></a>
 </div>
 
 <div class="vote-list-container">
     <div class="tab-buttons-wrapper">
-        <div class="tab-buttons">
-            <button class="tab-button active" onclick="openTab(event, 'public-votes')">공개투표</button>
-            <button class="tab-button" onclick="openTab(event, 'private-votes')">비공개투표</button>
+        <div class="tab-buttons" role="tablist">
+            <button class="tab-button active" type="button" onclick="openTab(event, 'public-votes')">공개투표</button>
+            <button class="tab-button" type="button" onclick="openTab(event, 'private-votes')">비공개투표</button>
         </div>
         <form id="create-vote-form" th:action="@{/vote/create}" method="get" class="create-vote-form">
             <input type="hidden" name="voteType" value="PUBLIC">
-            <button type="submit" class="create-vote-button">투표 만들기!</button>
+            <button type="submit" class="create-vote-button">투표 만들기</button>
         </form>
     </div>
 
     <div id="public-votes" class="tab">
 
         <div class="list-header">
-            <h2>공개 투표 목록</h2>
+            <h2>공개 투표</h2>
             <div class="sort-options">
                 <a th:href="@{/(page=0, sort='popular')}"
                    th:classappend="${currentSort == 'popular'} ? 'active'">인기순</a>
-
                 <a th:href="@{/(page=0, sort='latest')}"
                    th:classappend="${currentSort == 'latest' or currentSort == null} ? 'active'">최신순</a>
             </div>
@@ -91,29 +91,33 @@
         <ul class="vote-options">
             <li th:each="vote : ${votes}" class="vote-item">
                 <div class="vote-info">
-                    <h3 th:text="${vote.title}">투표</h3>
-                    <p th:text="'생성시간: ' + ${vote.formattedCreatedDate}">생성시간</p>
-                    <p th:text="${voteResults[vote.id]} + '명이 투표에 참여했어요'">몇명참여</p>
+                    <div class="vote-info-top">
+                        <h3 th:text="${vote.title}">투표</h3>
+                        <span class="vote-badge" th:text="${voteResults[vote.id]} + '명'">0명</span>
+                    </div>
+                    <p class="vote-meta" th:text="${vote.formattedCreatedDate}">생성시간</p>
                 </div>
                 <div class="vote-actions">
-                    <form th:action="@{/vote/{id}(id=${vote.id})}" method="get">
-                        <button type="submit" class="vote-button">투표 하러가기</button>
-                    </form>
-                    <form th:action="@{/vote/results/{id}(id=${vote.id})}" method="get">
-                        <button type="submit" class="result-button">투표 결과보기</button>
-                    </form>
-                    <form th:attr="onsubmit='return checkPasswordAndSubmit(this, \'/vote/edit/' + ${vote.id} + '\', \'GET\');'">
-                        <input type="hidden" name="voteId" th:value="${vote.id}">
-                        <button type="submit" class="vote-button">투표 수정하기</button>
-                    </form>
-                    <form th:attr="onsubmit='return checkPasswordAndSubmit(this, \'/vote/delete/' + ${vote.id} + '\');'" method="post">
-                        <input type="hidden" name="voteId" th:value="${vote.id}">
-                        <button type="submit" class="vote-button">투표 삭제하기</button>
-                    </form>
+                    <div class="vote-actions-primary">
+                        <form th:action="@{/vote/{id}(id=${vote.id})}" method="get">
+                            <button type="submit" class="vote-button">투표하기</button>
+                        </form>
+                        <form th:action="@{/vote/results/{id}(id=${vote.id})}" method="get">
+                            <button type="submit" class="result-button">결과</button>
+                        </form>
+                    </div>
+                    <div class="vote-actions-meta">
+                        <form th:attr="onsubmit='return checkPasswordAndSubmit(this, \'/vote/edit/' + ${vote.id} + '\', \'GET\');'">
+                            <input type="hidden" name="voteId" th:value="${vote.id}">
+                            <button type="submit" class="vote-link-btn">수정</button>
+                        </form>
+                        <form th:attr="onsubmit='return checkPasswordAndSubmit(this, \'/vote/delete/' + ${vote.id} + '\');'" method="post">
+                            <input type="hidden" name="voteId" th:value="${vote.id}">
+                            <button type="submit" class="vote-link-btn vote-link-danger">삭제</button>
+                        </form>
+                    </div>
                 </div>
             </li>
-            <li class="vote-item empty"></li>
-            <li class="vote-item empty"></li>
         </ul>
 
         <div class="pagination">
