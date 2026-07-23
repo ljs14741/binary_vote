@@ -5,6 +5,17 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap");
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 /* ===== Design tokens — Ink & Rose (vote-only, independent from GNB) ===== */
 body,
 .bw-vote-body {
@@ -44,8 +55,10 @@ body,
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  max-width: 100%;
   margin: 0;
   padding: 64px 0 0;
+  overflow-x: hidden;
   color: var(--bw-text);
   font-family: var(--bw-font-body);
   font-size: 1rem;
@@ -69,7 +82,8 @@ body > main,
 }
 
 #bw-guestbook {
-  width: min(1100px, calc(100% - 2rem));
+  width: min(780px, calc(100% - 2rem));
+  max-width: 100%;
   margin: 2.5rem auto 0;
   padding-bottom: 2rem;
 }
