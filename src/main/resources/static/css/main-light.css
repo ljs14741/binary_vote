@@ -443,7 +443,7 @@ h2 {
 .vote-list-container .vote-options {
   list-style: none;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
   margin: 0;
   padding: 0;
@@ -455,11 +455,14 @@ h2 {
   flex-direction: column;
   justify-content: space-between;
   gap: 1rem;
+  min-width: 0;
+  max-width: 100%;
   padding: 1.35rem 1.3rem 1.2rem;
   border: 1px solid var(--bw-border);
   border-radius: var(--bw-radius-lg);
   background: var(--bw-surface-strong);
   box-shadow: var(--bw-shadow);
+  overflow: hidden;
   transition:
     transform 0.26s var(--bw-ease),
     border-color 0.26s var(--bw-ease),
@@ -476,12 +479,18 @@ h2 {
   display: none;
 }
 
+.vote-info {
+  min-width: 0;
+  max-width: 100%;
+}
+
 .vote-info-top {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.75rem;
   margin-bottom: 0.35rem;
+  min-width: 0;
 }
 
 .vote-info h3 {
@@ -498,7 +507,7 @@ h2 {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
-  word-break: keep-all;
+  word-break: break-word;
   overflow-wrap: anywhere;
 }
 
@@ -527,14 +536,19 @@ h2 {
   flex-direction: column;
   gap: 0.65rem;
   margin-top: 0.1rem;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .vote-actions-primary {
   display: flex;
   gap: 0.5rem;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .vote-actions-primary form {
+  display: block;
   flex: 1;
   min-width: 0;
 }
@@ -571,7 +585,10 @@ h2 {
 .vote-button,
 .result-button {
   display: block;
+  box-sizing: border-box;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   padding: 0.58rem 0.85rem;
   border-radius: var(--bw-radius-md);
   font-family: var(--bw-font-body);
