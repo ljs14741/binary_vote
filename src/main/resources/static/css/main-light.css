@@ -54,6 +54,8 @@ body,
 .bw-vote-body {
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+  width: 100%;
   min-height: 100vh;
   max-width: 100%;
   margin: 0;
@@ -81,11 +83,24 @@ body > main,
   margin-top: 3.5rem;
 }
 
-#bw-guestbook {
-  width: min(780px, calc(100% - 2rem));
+/* flex 자식이 콘텐츠 min-width 때문에 뷰포트를 밀지 않도록 */
+.bw-vote-body > * {
   max-width: 100%;
+  min-width: 0;
+}
+
+#global-header,
+.bw-vote-body > header {
+  max-width: none;
+}
+
+#bw-guestbook {
+  width: 100%;
+  max-width: 780px;
+  min-width: 0;
   margin: 2.5rem auto 0;
-  padding-bottom: 2rem;
+  padding: 0 1.25rem 2rem;
+  box-sizing: border-box;
 }
 
 /* ===== Typography ===== */
@@ -115,6 +130,7 @@ h2 {
   -webkit-backdrop-filter: none;
   animation: bw-rise 0.55s var(--bw-ease) both;
   overflow: visible;
+  box-sizing: border-box;
 }
 
 .page-title::before {
@@ -180,8 +196,12 @@ h2 {
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  width: min(920px, calc(100% - 2rem));
+  width: 100%;
+  max-width: 920px;
+  min-width: 0;
   margin: 0 auto 0.5rem;
+  padding: 0 1.25rem;
+  box-sizing: border-box;
 }
 
 .bw-vote-rule {
@@ -193,10 +213,13 @@ h2 {
 }
 
 .intro {
-  width: min(900px, calc(100% - 2rem));
+  width: 100%;
+  max-width: 900px;
+  min-width: 0;
   margin: 0 auto;
-  padding: 1.25rem 1rem 0.75rem;
+  padding: 1.25rem 1.25rem 0.75rem;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .main-title {
@@ -275,9 +298,12 @@ h2 {
 
 /* ===== Vote list ===== */
 .vote-list-container {
-  width: min(780px, calc(100% - 2rem));
+  width: 100%;
+  max-width: 780px;
+  min-width: 0;
   margin: 0 auto;
-  padding: 0 0 2.5rem;
+  padding: 0 1.25rem 2.5rem;
+  box-sizing: border-box;
 }
 
 .tab-buttons-wrapper {
@@ -684,7 +710,9 @@ h2 {
 
 /* ===== Forms ===== */
 .vote-container {
-  width: min(700px, calc(100% - 2rem));
+  width: min(700px, calc(100% - 2.5rem));
+  max-width: 100%;
+  min-width: 0;
   margin: 1.25rem auto 2.5rem;
   padding: 1.65rem 1.4rem;
   border: 1px solid var(--bw-border);
@@ -692,6 +720,7 @@ h2 {
   background: var(--bw-surface-strong);
   box-shadow: var(--bw-shadow);
   animation: bw-fade-in 0.65s var(--bw-ease) both;
+  box-sizing: border-box;
 }
 
 .vote-form {
@@ -906,9 +935,12 @@ h2 {
 
 /* ===== Results ===== */
 .result-container {
-  width: min(800px, calc(100% - 2rem));
+  width: 100%;
+  max-width: 800px;
+  min-width: 0;
   margin: 0 auto;
-  padding: 0.5rem 0 2rem;
+  padding: 0.5rem 1.25rem 2rem;
+  box-sizing: border-box;
 }
 
 .chart-section {
@@ -1016,7 +1048,9 @@ h2 {
 
 /* ===== Legacy table fallback ===== */
 .table-responsive {
-  width: min(800px, calc(100% - 2rem));
+  width: min(800px, calc(100% - 2.5rem));
+  max-width: 100%;
+  min-width: 0;
   margin: 1.5rem auto 2rem;
   padding: 1.25rem;
   border: 1px solid var(--bw-border);
@@ -1025,6 +1059,7 @@ h2 {
   box-shadow: var(--bw-shadow);
   animation: bw-fade-in 0.65s var(--bw-ease) both;
   overflow-x: auto;
+  box-sizing: border-box;
 }
 
 .styled-table {
