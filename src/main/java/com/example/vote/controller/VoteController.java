@@ -225,35 +225,60 @@ public class VoteController {
     @GetMapping("/vote/results/{id}")
     public String viewVoteResults(@PathVariable Long id, Model model) {
         Vote vote = voteService.getVoteById(id);
-        List<Options> options = voteService.getOptionsByVoteId(id);
+        List<Options> options = new ArrayList<>(voteService.getOptionsByVoteId(id));
         Map<Long, Long> results = voteService.getResultCountByVoteIdGrouped(id);
 
-        // 1. [문구용] 순수 참여자 수 (사람 명수)
         Long totalParticipants = voteService.getUniqueUserCountByVoteId(id);
 
-        // 2. [계산용] 총 투표수 (찍힌 도장 개수)
         long totalVotesCast = 0;
         for (Long count : results.values()) {
             totalVotesCast += count;
         }
 
+        options.sort((a, b) -> {
+            long ca = results.getOrDefault(a.getOptionNumber(), 0L);
+            long cb = results.getOrDefault(b.getOptionNumber(), 0L);
+            int byCount = Long.compare(cb, ca);
+            if (byCount != 0) {
+                return byCount;
+            }
+            return Long.compare(
+                    a.getOptionNumber() != null ? a.getOptionNumber() : 0L,
+                    b.getOptionNumber() != null ? b.getOptionNumber() : 0L
+            );
+        });
+
+        Options winner = null;
+        boolean winnerTied = false;
+        double winnerPercent = 0;
+        if (totalVotesCast > 0 && !options.isEmpty()) {
+            winner = options.get(0);
+            long winnerCount = results.getOrDefault(winner.getOptionNumber(), 0L);
+            winnerPercent = winnerCount * 100.0 / totalVotesCast;
+            if (options.size() > 1) {
+                long secondCount = results.getOrDefault(options.get(1).getOptionNumber(), 0L);
+                winnerTied = winnerCount == secondCount;
+            }
+        }
+
         List<String> colorPalette = Arrays.asList(
-                "#4299e1", "#48bb78", "#f56565", "#ecc94b", "#9f7aea",
-                "#ed64a6", "#38b2ac", "#ed8936", "#667eea", "#a0aec0",
-                // 30개까지 반복
-                "#a3bffa", "#f6ad55", "#4299e1", "#48bb78", "#f56565",
-                "#ecc94b", "#9f7aea", "#ed64a6", "#38b2ac", "#ed8936",
-                "#667eea", "#a0aec0", "#a3bffa", "#f6ad55", "#4299e1",
-                "#48bb78", "#f56565", "#ecc94b", "#9f7aea", "#ed64a6"
+                "#e11d48", "#f59e0b", "#6366f1", "#0d9488", "#db2777",
+                "#ea580c", "#4f46e5", "#be123c", "#14b8a6", "#a1a1aa",
+                "#fb7185", "#fbbf24", "#818cf8", "#2dd4bf", "#f472b6",
+                "#f43f5e", "#d97706", "#8b5cf6", "#06b6d4", "#71717a",
+                "#e11d48", "#f59e0b", "#6366f1", "#0d9488", "#db2777",
+                "#ea580c", "#4f46e5", "#be123c", "#14b8a6", "#a1a1aa"
         );
 
         model.addAttribute("colorPalette", colorPalette);
         model.addAttribute("vote", vote);
         model.addAttribute("options", options);
         model.addAttribute("results", results);
-        // ✅ 두 값을 따로따로 넘겨줍니다.
-        model.addAttribute("totalParticipants", totalParticipants); // "10명 참여" 표시용
-        model.addAttribute("totalVotes", totalVotesCast);           // "50%" 계산용
+        model.addAttribute("totalParticipants", totalParticipants);
+        model.addAttribute("totalVotes", totalVotesCast);
+        model.addAttribute("winner", winner);
+        model.addAttribute("winnerPercent", winnerPercent);
+        model.addAttribute("winnerTied", winnerTied);
         return "voteResults";
     }
 
