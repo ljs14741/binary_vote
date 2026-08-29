@@ -995,20 +995,20 @@ h2 {
   border-radius: var(--bw-radius-pill);
   background: var(--bw-pop);
   color: #09090b;
-  font-family: var(--bw-font-display);
+  font-family: var(--bw-font-body);
   font-size: 0.72rem;
   font-weight: 800;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
 }
 
 .result-winner-name {
   margin: 0.7rem 0 0.35rem;
   color: var(--bw-text);
-  font-family: var(--bw-font-display);
-  font-size: clamp(1.45rem, 4.2vw, 2.05rem);
+  font-family: var(--bw-font-body);
+  font-size: clamp(1.35rem, 3.6vw, 1.75rem);
   font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.2;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
   word-break: keep-all;
 }
 
@@ -1025,10 +1025,11 @@ h2 {
 
 .result-winner-stat strong {
   color: var(--bw-pop);
-  font-family: var(--bw-font-display);
-  font-size: clamp(1.7rem, 4vw, 2.15rem);
+  font-family: var(--bw-font-body);
+  font-size: clamp(1.45rem, 3.2vw, 1.75rem);
   font-weight: 800;
-  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
   line-height: 1;
 }
 
@@ -1044,7 +1045,7 @@ h2 {
 .result-empty p {
   margin: 0 0 0.3rem;
   color: var(--bw-text);
-  font-family: var(--bw-font-display);
+  font-family: var(--bw-font-body);
   font-size: 1.1rem;
   font-weight: 800;
 }
@@ -1052,6 +1053,10 @@ h2 {
 .result-empty span {
   color: var(--bw-muted);
   font-size: 0.88rem;
+}
+
+.result-container ins.adsbygoogle {
+  display: none !important;
 }
 
 .result-stats {
@@ -1066,6 +1071,7 @@ h2 {
   flex-direction: column;
   gap: 0.15rem;
   padding: 0.85rem 0.95rem 0.95rem;
+  overflow: hidden;
   border: 1px solid var(--bw-border);
   border-radius: var(--bw-radius-md);
   background: var(--bw-surface-strong);
@@ -1085,11 +1091,12 @@ h2 {
 }
 
 .result-stat em {
-  font-family: var(--bw-font-display);
-  font-size: 1.35rem;
+  font-family: var(--bw-font-body);
+  font-size: 1.28rem;
   font-style: normal;
   font-weight: 800;
-  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
 }
 
 .result-board {
@@ -1136,10 +1143,11 @@ h2 {
 
 .chart-center strong {
   color: var(--bw-text);
-  font-family: var(--bw-font-display);
-  font-size: 1.55rem;
+  font-family: var(--bw-font-body);
+  font-size: 1.35rem;
   font-weight: 800;
-  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
   line-height: 1.1;
 }
 
@@ -1153,10 +1161,10 @@ h2 {
   padding-left: 0.7rem;
   border-left: 3px solid var(--bw-pop);
   color: var(--bw-text);
-  font-family: var(--bw-font-display);
-  font-size: 1.05rem;
+  font-family: var(--bw-font-body);
+  font-size: 1.02rem;
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   text-align: left;
 }
 
@@ -1185,9 +1193,10 @@ h2 {
   border-radius: 50%;
   background: var(--bw-accent-soft);
   color: var(--bw-muted);
-  font-family: var(--bw-font-display);
+  font-family: var(--bw-font-body);
   font-size: 0.78rem;
   font-weight: 800;
+  font-variant-numeric: tabular-nums;
   line-height: 1.7rem;
   text-align: center;
 }
@@ -1225,10 +1234,11 @@ h2 {
 
 .result-percent {
   color: var(--bw-text);
-  font-family: var(--bw-font-display);
-  font-size: 1.2rem;
+  font-family: var(--bw-font-body);
+  font-size: 1.05rem;
   font-weight: 800;
-  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
 }
 
 .progress-track {
@@ -1261,16 +1271,16 @@ h2 {
 }
 
 .result-item.is-first .progress-fill {
-  background: var(--bw-signal);
+  background: var(--bw-pop);
 }
 
 .result-item.is-second .result-rank {
-  background: rgba(251, 191, 36, 0.18);
-  color: #fde68a;
+  background: var(--bw-pop-soft);
+  color: var(--bw-pop);
 }
 
 .result-item.is-second .progress-fill {
-  background: linear-gradient(90deg, #fafafa 0%, var(--bw-amber) 100%);
+  background: #fb7185;
 }
 
 .result-item.is-third .result-rank {
@@ -1279,7 +1289,7 @@ h2 {
 }
 
 .result-item.is-third .progress-fill {
-  background: #fafafa;
+  background: #71717a;
 }
 
 .vote-count-info {
