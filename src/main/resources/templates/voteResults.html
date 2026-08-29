@@ -96,7 +96,7 @@
             <div class="chart-wrapper">
                 <canvas id="voteChart" aria-label="득표 비율 차트"></canvas>
                 <div class="chart-center">
-                    <span th:text="${winnerTied} ? '공동' : '1위'">1위</span>
+                    <span class="chart-center-name" th:text="${winner.optionText}">1위 항목</span>
                     <strong th:text="${#numbers.formatDecimal(winnerPercent, 1, 0)} + '%'">0%</strong>
                 </div>
             </div>
@@ -108,6 +108,7 @@
             <div th:each="option, stat : ${options}"
                  class="result-item"
                  th:classappend="${totalVotes > 0} ? (${stat.index == 0} ? ' is-first' : (${stat.index == 1} ? ' is-second' : (${stat.index == 2} ? ' is-third' : ''))) : ''"
+                 th:style="${stat.index < 30} ? |--result-color: ${colorPalette[stat.index]}|"
                  th:with="count=${results[option.optionNumber] != null ? results[option.optionNumber] : 0},
                           percent=${totalVotes > 0 ? (count * 100.0 / totalVotes) : 0}">
 
@@ -246,13 +247,19 @@
 
         const ctx = canvas.getContext('2d');
 
+        const medalColors = ["#f5c542", "#c5d0dc", "#e0a070"];
+        const sliceColors = labels.map(function (_, i) {
+            if (i < 3) return medalColors[i];
+            return colorPalette[i] || "#a1a1aa";
+        });
+
         voteChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
                 labels: labels,
                 datasets: [{
                     data: data,
-                    backgroundColor: colorPalette.slice(0, labels.length),
+                    backgroundColor: sliceColors,
                     borderWidth: 3,
                     borderColor: chartBorderColor(),
                     hoverOffset: 6

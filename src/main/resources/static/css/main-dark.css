@@ -967,14 +967,27 @@ h2 {
   margin: 0 0 1.15rem;
   padding: 1.35rem 1.35rem 1.45rem;
   overflow: hidden;
-  border: 1px solid var(--bw-border);
+  border: 1px solid rgba(245, 197, 66, 0.4);
   border-radius: var(--bw-radius-lg);
-  background:
-    radial-gradient(520px 180px at 8% 0%, var(--bw-pop-soft), transparent 62%),
-    var(--bw-surface-strong);
+  background: linear-gradient(90deg, rgba(245, 197, 66, 0.22) 0%, #18181b 72%);
   box-shadow: var(--bw-shadow);
   text-align: center;
   animation: bw-pop 0.55s var(--bw-ease) both;
+}
+
+.result-winner > * {
+  position: relative;
+  z-index: 1;
+}
+
+.result-winner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 32%, rgba(255, 248, 210, 0.28) 50%, transparent 68%);
+  animation: result-shine 3.2s ease-in-out 0.4s infinite;
 }
 
 .result-winner::after {
@@ -983,9 +996,9 @@ h2 {
   width: min(10rem, 46%);
   height: 2px;
   margin: 1.1rem auto 0;
-  background: var(--bw-signal);
+  background: linear-gradient(90deg, #f5c542, #e0a070);
   border-radius: 1px;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 .result-winner-badge {
@@ -993,12 +1006,13 @@ h2 {
   align-items: center;
   padding: 0.22rem 0.7rem;
   border-radius: var(--bw-radius-pill);
-  background: var(--bw-pop);
-  color: #09090b;
+  background: #f5c542;
+  color: #3a2a20;
   font-family: var(--bw-font-body);
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.04em;
+  animation: result-medal-pulse 2.2s ease-in-out 0.55s infinite;
 }
 
 .result-winner-name {
@@ -1024,7 +1038,7 @@ h2 {
 }
 
 .result-winner-stat strong {
-  color: var(--bw-pop);
+  color: #f5c542;
   font-family: var(--bw-font-body);
   font-size: clamp(1.45rem, 3.2vw, 1.75rem);
   font-weight: 800;
@@ -1131,14 +1145,23 @@ h2 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 0.12rem;
   pointer-events: none;
 }
 
-.chart-center span {
-  color: var(--bw-muted);
-  font-size: 0.72rem;
+.chart-center-name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  max-width: 7.4rem;
+  color: var(--bw-text);
+  font-size: 0.68rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  text-align: center;
+  word-break: keep-all;
 }
 
 .chart-center strong {
@@ -1169,11 +1192,13 @@ h2 {
 }
 
 .result-item {
+  position: relative;
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
   margin-bottom: 0.7rem;
   padding: 0.85rem 0.9rem 0.95rem;
+  overflow: hidden;
   border: 1px solid var(--bw-border-subtle);
   border-radius: var(--bw-radius-md);
   background: var(--bw-surface-strong);
@@ -1254,42 +1279,79 @@ h2 {
   height: 100%;
   min-width: 0;
   border-radius: var(--bw-radius-pill);
-  background: rgba(250, 250, 250, 0.28);
+  background: var(--result-color, rgba(250, 250, 250, 0.28));
   transition: width 0.9s var(--bw-ease);
 }
 
+.result-item:not(.is-first):not(.is-second):not(.is-third) .result-rank {
+  background: color-mix(in srgb, var(--result-color, #a1a1aa) 32%, #18181b);
+  color: var(--result-color, #a1a1aa);
+}
+
+.result-item.is-first,
+.result-item.is-second,
+.result-item.is-third {
+  overflow: hidden;
+}
+
+.result-item.is-first::after,
+.result-item.is-second::after,
+.result-item.is-third::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.18) 50%, transparent 65%);
+  transform: translateX(-130%);
+  animation: result-shine 3.2s ease-in-out 0.4s infinite;
+}
+
 .result-item.is-first {
-  border-color: rgba(251, 113, 133, 0.35);
-  background:
-    linear-gradient(180deg, var(--bw-pop-soft), transparent 54%),
-    var(--bw-surface-strong);
+  border-color: rgba(245, 197, 66, 0.45);
+  background: linear-gradient(90deg, rgba(245, 197, 66, 0.2) 0%, #18181b 70%);
+}
+
+.result-item.is-first::after {
+  background: linear-gradient(110deg, transparent 32%, rgba(255, 248, 210, 0.28) 50%, transparent 68%);
 }
 
 .result-item.is-first .result-rank {
-  background: var(--bw-pop);
-  color: #09090b;
+  background: #f5c542;
+  color: #3a2a20;
+  box-shadow: 0 0 0 3px rgba(245, 197, 66, 0.28);
+  animation: result-medal-pulse 2.2s ease-in-out 0.55s infinite;
 }
 
 .result-item.is-first .progress-fill {
-  background: var(--bw-pop);
+  background: #f5c542;
+}
+
+.result-item.is-second {
+  border-color: rgba(197, 208, 220, 0.4);
+  background: linear-gradient(90deg, rgba(197, 208, 220, 0.16) 0%, #18181b 70%);
 }
 
 .result-item.is-second .result-rank {
-  background: var(--bw-pop-soft);
-  color: var(--bw-pop);
+  background: #c5d0dc;
+  color: #2a3340;
 }
 
 .result-item.is-second .progress-fill {
-  background: #fb7185;
+  background: #c5d0dc;
+}
+
+.result-item.is-third {
+  border-color: rgba(224, 160, 112, 0.4);
+  background: linear-gradient(90deg, rgba(224, 160, 112, 0.18) 0%, #18181b 70%);
 }
 
 .result-item.is-third .result-rank {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--bw-text);
+  background: #e0a070;
+  color: #3a2414;
 }
 
 .result-item.is-third .progress-fill {
-  background: #71717a;
+  background: #e0a070;
 }
 
 .vote-count-info {
@@ -1501,6 +1563,28 @@ h2 {
 @keyframes bw-pop {
   from { opacity: 0; transform: translateY(12px) scale(0.98); }
   to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes result-shine {
+  0%, 48% { transform: translateX(-130%); }
+  68% { transform: translateX(130%); }
+  100% { transform: translateX(130%); }
+}
+
+@keyframes result-medal-pulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(245, 197, 66, 0.28); transform: scale(1); }
+  50% { box-shadow: 0 0 0 7px rgba(245, 197, 66, 0.16); transform: scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .result-winner::before,
+  .result-winner-badge,
+  .result-item.is-first::after,
+  .result-item.is-second::after,
+  .result-item.is-third::after,
+  .result-item.is-first .result-rank {
+    animation: none !important;
+  }
 }
 
 /* ===== Responsive (mobile-first) ===== */
