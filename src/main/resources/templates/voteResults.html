@@ -81,8 +81,8 @@
             <span>참여</span>
             <strong><em th:text="${totalParticipants}">0</em>명</strong>
         </div>
-        <div class="result-stat">
-            <span>총 표</span>
+        <div class="result-stat" th:if="${vote.allowMultipleVotes}">
+            <span>총 투표수</span>
             <strong><em th:text="${totalVotes}">0</em>표</strong>
         </div>
         <div class="result-stat" th:if="${winner != null}">
