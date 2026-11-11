@@ -154,7 +154,8 @@
     // 2. 테마 토글
     const themeToggle = document.getElementById('themeToggle');
     const themeLink = document.getElementById('theme-style');
-    const currentTheme = localStorage.getItem('theme') || 'light';
+    // .binaryworld.kr 공용 쿠키 먼저 (다른 서브도메인에서 고른 테마 유지)
+    const currentTheme = (document.cookie.match(/(?:^|;\s*)bw_theme=(light|dark)/) || [])[1] || localStorage.getItem('theme') || 'light';
 
     applyTheme(currentTheme);
 
