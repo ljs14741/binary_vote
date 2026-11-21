@@ -18,14 +18,14 @@
     <!-- 서비스 공용 디자인 (로컬 확인 땐 BW_COMMON 으로 주소를 바꿀 수 있음) -->
     <link rel="stylesheet" th:href="${@environment.getProperty('bw.common', 'https://binaryworld.kr')} + '/common/service.css'" href="https://binaryworld.kr/common/service.css">
     <link rel="stylesheet" th:href="@{/css/vote-ui.css}">
-    <link id="theme-style" rel="stylesheet" th:href="@{/css/main-light.css}">
+    <link id="theme-style" rel="stylesheet" th:href="@{/css/main-light.css(v=2)}">
     <script>
         // 다른 서브도메인에서 고른 테마 이어받기. 처음 온 사람은 밝게 (헤더가 뜨기 전에 미리 바꿔 깜빡임 막음)
         (function () {
             var m = document.cookie.match(/(?:^|;\s*)bw_theme=(light|dark)/);
             var t = m ? m[1] : null;
             try { t = t || localStorage.getItem('theme'); } catch (e) { }
-            if (t === 'light' || t === 'dark') document.getElementById('theme-style').setAttribute('href', '/css/main-' + t + '.css');
+            if (t === 'light' || t === 'dark') document.getElementById('theme-style').setAttribute('href', '/css/main-' + t + '.css?v=2');
         })();
     </script>
 
