@@ -1,9 +1,9 @@
 /*
   Binary Vote — Signal Glass (light)
-  Syne (display) · Manrope (body)
+  Pretendard
 */
 
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap");
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
 
 *,
 *::before,
@@ -20,8 +20,8 @@ html {
 body,
 .bw-vote-body {
   --bw-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --bw-font-display: "Syne", "Avenir Next", "Segoe UI", sans-serif;
-  --bw-font-body: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+  --bw-font-display: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
+  --bw-font-body: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
   --bw-bg: #f7f7f5;
   --bw-bg-deep: #ecece8;
   --bw-surface: rgba(255, 255, 255, 0.78);
@@ -292,7 +292,7 @@ h2 {
   opacity: 0.9;
 }
 
-.link-icon.twitter { background-image: url(../img/icon-twitter.png); }
+.link-icon.twitter { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23000'/%3E%3Cpath fill='%23fff' d='M24.6 11.5h2.6l-5.7 6.5 6.7 8.9h-5.2l-4.1-5.4-4.7 5.4h-2.6l6.1-7-6.4-8.4h5.4l3.7 4.9zm-.9 13.8h1.4L16.2 13h-1.6z'/%3E%3C/svg%3E"); }
 .link-icon.facebook { background-image: url(../img/icon-facebook.png); }
 .link-icon.kakao { background-image: url(../img/icon-kakao.png); }
 

@@ -28,10 +28,19 @@
     <!-- Stylesheet -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link id="bw-pretendard" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
     <link rel="stylesheet" href="https://binaryworld.kr/common/header.css">
     <link rel="stylesheet" href="https://binaryworld.kr/common/footer.css">
     <link id="theme-style" rel="stylesheet" th:href="@{/css/main-light.css}">
+    <script>
+        // 다른 서브도메인에서 고른 테마 이어받기. 처음 온 사람은 밝게 (헤더가 뜨기 전에 미리 바꿔 깜빡임 막음)
+        (function () {
+            var m = document.cookie.match(/(?:^|;\s*)bw_theme=(light|dark)/);
+            var t = m ? m[1] : null;
+            try { t = t || localStorage.getItem('theme'); } catch (e) { }
+            if (t === 'light' || t === 'dark') document.getElementById('theme-style').setAttribute('href', '/css/main-' + t + '.css');
+        })();
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6890085609044109"
@@ -193,35 +202,19 @@
             });
         }
 
-        // 2. 테마 토글
-        const themeToggle = document.getElementById('themeToggle');
-        const themeLink = document.getElementById('theme-style');
-        // .binaryworld.kr 공용 쿠키 먼저 (다른 서브도메인에서 고른 테마 유지)
-        const currentTheme = (document.cookie.match(/(?:^|;\s*)bw_theme=(light|dark)/) || [])[1] || localStorage.getItem('theme') || 'light';
         let voteChart = null;
 
         function chartBorderColor() {
             return getComputedStyle(document.body).getPropertyValue('--bw-surface-strong').trim() || '#ffffff';
         }
 
-        function applyTheme(theme) {
-            themeLink.setAttribute('href', `/css/main-${theme}.css`);
-            localStorage.setItem('theme', theme);
+        // 테마는 공용 헤더가 바꿈. 새 테마 CSS 가 다 불러와지면 차트 테두리 색만 맞춤
+        document.getElementById('theme-style').addEventListener('load', () => {
             if (voteChart) {
                 voteChart.data.datasets[0].borderColor = chartBorderColor();
                 voteChart.update();
             }
-        }
-
-        applyTheme(currentTheme);
-
-        if (themeToggle && themeLink) {
-            themeToggle.addEventListener('click', () => {
-                const isDark = themeLink.getAttribute('href').includes('dark');
-                const nextTheme = isDark ? 'light' : 'dark';
-                applyTheme(nextTheme);
-            });
-        }
+        });
 
         document.querySelectorAll('.progress-fill').forEach(function (bar) {
             const width = bar.getAttribute('data-width');

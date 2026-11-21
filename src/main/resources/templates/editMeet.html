@@ -29,10 +29,19 @@
     <!-- Stylesheet -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link id="bw-pretendard" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
     <link rel="stylesheet" href="https://binaryworld.kr/common/header.css">
     <link rel="stylesheet" href="https://binaryworld.kr/common/footer.css">
     <link id="theme-style" rel="stylesheet" th:href="@{/css/main-light.css}">
+    <script>
+        // 다른 서브도메인에서 고른 테마 이어받기. 처음 온 사람은 밝게 (헤더가 뜨기 전에 미리 바꿔 깜빡임 막음)
+        (function () {
+            var m = document.cookie.match(/(?:^|;\s*)bw_theme=(light|dark)/);
+            var t = m ? m[1] : null;
+            try { t = t || localStorage.getItem('theme'); } catch (e) { }
+            if (t === 'light' || t === 'dark') document.getElementById('theme-style').setAttribute('href', '/css/main-' + t + '.css');
+        })();
+    </script>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6890085609044109"
             crossorigin="anonymous"></script>
@@ -52,7 +61,6 @@
 <header id="global-header" aria-label="Binary World 공통 메뉴"></header>
 
 <div class="page-title">
-    <p class="bw-vote-kicker">Binary World</p>
     <h1>익명 투표
         <button onclick="openGuideModal()" class="guide-btn" type="button">이용 가이드</button>
     </h1>
@@ -151,26 +159,6 @@
         });
     }
 
-    // 2. 테마 토글
-    const themeToggle = document.getElementById('themeToggle');
-    const themeLink = document.getElementById('theme-style');
-    // .binaryworld.kr 공용 쿠키 먼저 (다른 서브도메인에서 고른 테마 유지)
-    const currentTheme = (document.cookie.match(/(?:^|;\s*)bw_theme=(light|dark)/) || [])[1] || localStorage.getItem('theme') || 'light';
-
-    applyTheme(currentTheme);
-
-    if (themeToggle && themeLink) {
-        themeToggle.addEventListener('click', () => {
-            const isDark = themeLink.getAttribute('href').includes('dark');
-            const nextTheme = isDark ? 'light' : 'dark';
-            applyTheme(nextTheme);
-        });
-    }
-
-    function applyTheme(theme) {
-        themeLink.setAttribute('href', `/css/main-${theme}.css`);
-        localStorage.setItem('theme', theme);
-    }
 
     function validateForm() {
         var inputs = document.querySelectorAll("input[required]");

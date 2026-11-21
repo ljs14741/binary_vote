@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>문제가 생겼어요 | Binary World</title>
+  <link rel="icon" href="https://binaryworld.kr/img/favicon/favicon.ico" type="image/x-icon">
+  <!-- 오류 페이지는 binaryworld.kr 공용 디자인 하나를 모든 서브도메인이 같이 씀 -->
+  <link rel="stylesheet" href="https://binaryworld.kr/common/header.css">
+  <link rel="stylesheet" href="https://binaryworld.kr/common/footer.css">
+  <link rel="stylesheet" href="https://binaryworld.kr/common/error.css">
+  <link id="theme-style" rel="stylesheet" href="https://binaryworld.kr/common/error-light.css">
+  <script>
+    // 다른 서브도메인에서 고른 테마 이어받기. 처음 온 사람은 밝게
+    (function () {
+      var m = document.cookie.match(/(?:^|;\s*)bw_theme=(light|dark)/);
+      var t = m ? m[1] : null;
+      try { t = t || localStorage.getItem('theme'); } catch (e) { }
+      if (t === 'dark') {
+        var link = document.getElementById('theme-style');
+        link.setAttribute('href', link.getAttribute('href').replace('error-light.css', 'error-dark.css'));
+      }
+    })();
+  </script>
+</head>
+<body class="bw-err-body" data-code="500" th:attr="data-code=${status}">
+<header id="global-header" aria-label="Binary World 공통 메뉴"></header>
+
+<main id="bw-error" class="bw-err">
+  <div class="bw-err-inner bw-err-fallback">
+    <h1>문제가 생겼어요</h1>
+    <p><a href="/">처음으로 가기</a></p>
+  </div>
+</main>
+
+<footer id="global-footer" aria-label="Binary World 푸터"></footer>
+<script src="https://binaryworld.kr/common/error.js" defer></script>
+<script src="https://binaryworld.kr/common/header.js" defer></script>
+<script src="https://binaryworld.kr/common/footer.js" defer></script>
+</body>
+</html>
