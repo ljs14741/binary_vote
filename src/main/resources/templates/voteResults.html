@@ -31,6 +31,9 @@
     <link id="bw-pretendard" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
     <link rel="stylesheet" href="https://binaryworld.kr/common/header.css">
     <link rel="stylesheet" href="https://binaryworld.kr/common/footer.css">
+    <!-- 서비스 공용 디자인 (로컬 확인 땐 BW_COMMON 으로 주소를 바꿀 수 있음) -->
+    <link rel="stylesheet" th:href="${@environment.getProperty('bw.common', 'https://binaryworld.kr')} + '/common/service.css'" href="https://binaryworld.kr/common/service.css">
+    <link rel="stylesheet" th:href="@{/css/vote-ui.css}">
     <link id="theme-style" rel="stylesheet" th:href="@{/css/main-light.css}">
     <script>
         // 다른 서브도메인에서 고른 테마 이어받기. 처음 온 사람은 밝게 (헤더가 뜨기 전에 미리 바꿔 깜빡임 막음)
@@ -56,11 +59,19 @@
         gtag('config', 'G-0TSFJBQ41N');
     </script>
 </head>
-<body class="bw-vote-body">
+<body class="bw-vote-body bw-svc-page">
 <header id="global-header" aria-label="Binary World 공통 메뉴"></header>
 
 <div class="page-title">
-    <p class="bw-vote-kicker">투표 결과</p>
+    <div class="bw-svc-toys" aria-hidden="true">
+        <span class="bw-toy bw-toy-ballot" style="--x:7%;--y:22%;--s:64px;--d:7s;--r0:-10deg;--r1:6deg"></span>
+        <span class="bw-toy bw-toy-chip" style="--x:86%;--y:18%;--s:54px;--d:6.5s;--delay:-2s;--c1:#6ee7b7;--c2:#059669">✓</span>
+        <span class="bw-toy bw-toy-bar" style="--x:88%;--y:66%;--s:60px;--d:8s;--delay:-1s;--r0:4deg;--r1:-6deg"></span>
+        <span class="bw-toy bw-toy-chip" style="--x:5%;--y:68%;--s:50px;--d:7.5s;--delay:-3s;--c1:#93c5fd;--c2:#2563eb">%</span>
+        <span class="bw-toy bw-toy-star" style="--x:20%;--y:8%;--s:34px;--d:6s;--delay:-4s"></span>
+        <span class="bw-toy bw-toy-ball" style="--x:76%;--y:86%;--s:22px;--d:5s;--delay:-2s"></span>
+    </div>
+    <p class="bw-svc-eyebrow">Results</p>
     <h1 th:text="${vote.title}">투표 제목</h1>
 </div>
 
@@ -282,6 +293,7 @@
         });
     });
 </script>
+<script th:src="${@environment.getProperty('bw.common', 'https://binaryworld.kr')} + '/common/service.js'" src="https://binaryworld.kr/common/service.js" defer></script>
 <script src="https://binaryworld.kr/common/header.js" defer></script>
 <script src="https://binaryworld.kr/common/footer.js" defer></script>
 </body>

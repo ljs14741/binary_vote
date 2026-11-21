@@ -32,6 +32,9 @@
     <link rel="stylesheet" href="https://binaryworld.kr/common/header.css">
     <link rel="stylesheet" href="https://binaryworld.kr/common/footer.css">
     <link rel="stylesheet" href="https://binaryworld.kr/common/guestbook.css">
+    <!-- 서비스 공용 디자인 (로컬 확인 땐 BW_COMMON 으로 주소를 바꿀 수 있음) -->
+    <link rel="stylesheet" th:href="${@environment.getProperty('bw.common', 'https://binaryworld.kr')} + '/common/service.css'" href="https://binaryworld.kr/common/service.css">
+    <link rel="stylesheet" th:href="@{/css/vote-ui.css}">
     <link id="theme-style" rel="stylesheet" th:href="@{/css/main-light.css}">
     <script>
         // 다른 서브도메인에서 고른 테마 이어받기. 처음 온 사람은 밝게 (헤더가 뜨기 전에 미리 바꿔 깜빡임 막음)
@@ -75,21 +78,31 @@
     </script>
 
 </head>
-<body class="bw-vote-body">
+<body class="bw-vote-body bw-svc-page">
 <header id="global-header" aria-label="Binary World 공통 메뉴"></header>
 
 <div class="page-title">
-    <h1>무료 익명 투표 사이트
-        <button onclick="openGuideModal()" class="guide-btn" type="button">이용 가이드</button>
-    </h1>
+    <div class="bw-svc-toys" aria-hidden="true">
+        <span class="bw-toy bw-toy-ballot" style="--x:7%;--y:22%;--s:64px;--d:7s;--r0:-10deg;--r1:6deg"></span>
+        <span class="bw-toy bw-toy-chip" style="--x:86%;--y:18%;--s:54px;--d:6.5s;--delay:-2s;--c1:#6ee7b7;--c2:#059669">✓</span>
+        <span class="bw-toy bw-toy-bar" style="--x:88%;--y:66%;--s:60px;--d:8s;--delay:-1s;--r0:4deg;--r1:-6deg"></span>
+        <span class="bw-toy bw-toy-chip" style="--x:5%;--y:68%;--s:50px;--d:7.5s;--delay:-3s;--c1:#93c5fd;--c2:#2563eb">%</span>
+        <span class="bw-toy bw-toy-star" style="--x:20%;--y:8%;--s:34px;--d:6s;--delay:-4s"></span>
+        <span class="bw-toy bw-toy-ball" style="--x:76%;--y:86%;--s:22px;--d:5s;--delay:-2s"></span>
+    </div>
+    <p class="bw-svc-eyebrow">Anonymous Vote</p>
+    <h1>무료 <span class="bw-svc-em">익명 투표</span> 사이트</h1>
     <p>로그인 없이 만들고, 바로 참여하는 가벼운 투표</p>
-</div>
-
-<div class="icon-container">
+    <div class="bw-svc-actions">
+        <button onclick="openGuideModal()" class="guide-btn" type="button">이용 가이드</button>
+    </div>
+    <div class="icon-container">
     <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();" aria-label="트위터 공유"></a>
     <a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();" aria-label="페이스북 공유"></a>
     <a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();" aria-label="카카오 공유"></a>
+    </div>
 </div>
+
 
 <div class="vote-list-container">
     <div class="tab-buttons-wrapper">
@@ -115,7 +128,7 @@
             </div>
         </div>
         <ul class="vote-options">
-            <li th:each="vote : ${votes}" class="vote-item">
+            <li th:each="vote : ${votes}" class="vote-item bw-tilt" data-tilt="4">
                 <div class="vote-info">
                     <div class="vote-info-top">
                         <h3 th:text="${vote.title}">투표</h3>
@@ -352,6 +365,7 @@
     setupKakaoShareButton();
 
 </script>
+<script th:src="${@environment.getProperty('bw.common', 'https://binaryworld.kr')} + '/common/service.js'" src="https://binaryworld.kr/common/service.js" defer></script>
 <script src="https://binaryworld.kr/common/header.js" defer></script>
 <script src="https://binaryworld.kr/common/footer.js" defer></script>
 <script src="https://binaryworld.kr/common/guestbook.js" defer></script>
