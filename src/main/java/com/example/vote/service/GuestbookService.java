@@ -22,7 +22,7 @@ public class GuestbookService {
     public void create(GuestbookDTO dto) {
         Guestbook guestbook = Guestbook.builder()
                 .nickname(dto.getNickname())
-                .password(dto.getPassword())
+                .password(GuestbookPassword.hash(dto.getPassword()))
                 .content(dto.getContent())
                 .build();
         guestbookRepository.save(guestbook);
@@ -45,7 +45,7 @@ public class GuestbookService {
     // 삭제
     public boolean delete(Long id, String password) {
         return guestbookRepository.findById(id)
-                .filter(g -> g.getPassword().equals(password))
+                .filter(g -> GuestbookPassword.matches(password, g.getPassword()))
                 .map(g -> {
                     guestbookRepository.delete(g);
                     return true;
